@@ -56,9 +56,15 @@ namespace MarcaPlantao_Api.Controllers.Acesso
         public async Task<IActionResult> Login([FromQuery] string email, string senha)
         {
             var result = await servicoAutenticacao.Login(email,senha,false,true);
-            result.Token = await GerarToken(email);
 
-            return Response(result);
+            if(result.Email != null) 
+            {
+                result.Token = await GerarToken(email);
+                return Response(result);
+            }
+            
+
+            return BadRequest("Usuário ou senha inválida");
         }
 
         private async Task<string> GerarToken(string Email)
