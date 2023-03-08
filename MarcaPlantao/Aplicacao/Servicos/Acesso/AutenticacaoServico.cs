@@ -1,0 +1,145 @@
+﻿using AutoMapper;
+using MarcaPlantao.Aplicacao.Comandos.ProfissionalComandos;
+using MarcaPlantao.Aplicacao.Dados.Acesso;
+using MarcaPlantao.Aplicacao.Dados.Especializacoes;
+using MarcaPlantao.Aplicacao.Dados.Profissionais;
+using MarcaPlantao.Aplicacao.Dados.Usuario;
+using MarcaPlantao.Dominio.Usuarios;
+using MarcaPlantao.Infra.Contexto;
+using MarcaPlantao.Infra.Repositorios.Profissionais;
+using MarcaPlantao_Infraestrutura.Comunicacao.Mediador;
+using MarcaPlantao_Infraestrutura.Mensagens.Notificacao;
+using MediatR;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+
+namespace MarcaPlantao.Aplicacao.Servicos.Acesso
+{
+    public class AutenticacaoServico : IAutenticacaoServico
+    {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly AppDbContext appDbContext;
+        private readonly IMediatorHandler mediadorHandler;
+        private readonly IMapper mapper;
+        private readonly IProfissionalRepositorio profissionalRepositorio;
+
+        public AutenticacaoServico(UserManager<ApplicationUser> userManager, 
+            AppDbContext appDbContext,
+            SignInManager<ApplicationUser> signInManager,
+            IMediatorHandler mediadorHandler,
+            IMapper mapper,
+            IProfissionalRepositorio profissionalRepositorio)
+        {
+            _userManager = userManager;
+            this.appDbContext = appDbContext;
+            _signInManager = signInManager;
+            this.mediadorHandler = mediadorHandler;
+            this.mapper = mapper;
+            this.profissionalRepositorio = profissionalRepositorio;
+        }
+
+        public async Task<ApplicationUser> RegistrarUsuario(ApplicationUserDados user, string role, string claims)
+        {
+            if (!(await this.profissionalRepositorio.ValidarProfissional(user.CRM, user.CPF)))
+            {
+                ApplicationUser usuario = mapper.Map<ApplicationUser>(user);
+                var result = await _userManager.CreateAsync(usuario, user.Password);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddClaimAsync(usuario, new Claim(role, claims));
+
+                    ApplicationUser resultUser = await _userManager.FindByIdAsync(usuario.Id);
+
+                    await _userManager.UpdateAsync(resultUser);
+
+                    var profissional = new ProfissionalDados();
+                    profissional.Nome = user.Nome;
+
+                    if (user.Imagem != null && user.Imagem.Length > 0)
+                    {
+                        using (var ms = new MemoryStream())
+                        {
+                            user.Imagem.CopyTo(ms);
+                            profissional.Imagem = ms.ToArray();
+                        }
+                    }
+
+                    profissional.DataNascimento = user.DataNascimento;
+                    profissional.Telefone = user.Telefone;
+                    profissional.UserId = resultUser.Id;
+                    profissional.Genero = user.Genero;
+                    profissional.Especializacoes = user.Especializacoes;
+
+                    await mediadorHandler.EnviarComando(mapper.Map<AdicionarProfissionalComando>(profissional));
+
+                    return resultUser;
+                }
+                foreach (var error in result.Errors)
+                {
+                    await mediadorHandler.PublicarNotificacao(new NotificacaoDominio("RegistrarUsuario", error.Description));
+                }
+            }
+            else 
+            {
+                await mediadorHandler.PublicarNotificacao(new NotificacaoDominio("RegistrarUsuario", "CRM ou CPF informados já foram cadastrados!"));
+            }
+
+            return null;
+        }
+
+        public async Task RegistrarAdministrador(AdministratorUserDados user, string role, string claims)
+        {
+            ApplicationUser usuario = mapper.Map<ApplicationUser>(user);
+
+            IdentityResult result = await _userManager.CreateAsync(usuario, user.Password);
+            if (result.Succeeded)
+            {
+                await _userManager.AddClaimAsync(usuario, new Claim(role, claims));
+            }
+            foreach (var error in result.Errors)
+            {
+                await mediadorHandler.PublicarNotificacao(new NotificacaoDominio("RegistrarUsuario", error.Description));
+            }
+        }
+
+        public async Task<UsuarioDados> Login(string email, string senha, bool isPersistent, bool lockoutOnFailure)
+        {
+            UsuarioDados usuarioDados = new UsuarioDados();
+
+            SignInResult result = await _signInManager.PasswordSignInAsync(email, senha, false, true);
+
+            if (result.Succeeded)
+            {
+                usuarioDados = mapper.Map<UsuarioDados>(await RetornarUsuario(email));
+            }
+            if(result.IsNotAllowed)
+            {
+                await mediadorHandler.PublicarNotificacao(new NotificacaoDominio("Login", "Usuário e/ou senha inválidos"));
+            }
+            if (result.IsLockedOut) 
+            {
+                await mediadorHandler.PublicarNotificacao(new NotificacaoDominio("Login", "Usuário desativado"));
+            }
+
+            return usuarioDados;
+        }
+
+        public async Task<ApplicationUser> RetornarUsuario(string Email)
+        {
+            var userId = await _userManager.FindByEmailAsync(Email);
+            return await appDbContext.Users.SingleOrDefaultAsync(x => x.Id == userId.Id);
+        }
+
+        public async Task<IList<Claim>> RetornarClaims(ApplicationUser applicationUser)
+        {
+            return await _userManager.GetClaimsAsync(applicationUser);
+        }
+
+        public async Task<IList<string>> RetornarRoles(ApplicationUser applicationUser)
+        {
+            return await _userManager.GetRolesAsync(applicationUser);
+        }
+    }
+}

@@ -1,0 +1,22 @@
+﻿using MarcaPlantao.Aplicacao.Dados.Clinicas;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MarcaPlantao.Aplicacao.Servicos.Clinicas
+{
+    public interface IClinicaServicoApp
+    {
+        Task<bool> AdicionarAsync(ClinicaDados clinicaDados);
+
+        Task<bool> AtualizarAsync(ClinicaDados clinicaDados);
+
+        Task<bool> RemoverAsync(Guid id);
+
+        Task<ClinicaDados> ObterPorId(Guid id);
+
+        Task<List<ClinicaDados>> ObterTodos();
+    }
+}
