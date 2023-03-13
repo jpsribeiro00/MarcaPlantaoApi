@@ -70,6 +70,8 @@ namespace MarcaPlantao.Aplicacao.Servicos.Acesso
                     profissional.Telefone = user.Telefone;
                     profissional.UserId = resultUser.Id;
                     profissional.Genero = user.Genero;
+                    profissional.CPF = user.CPF;
+                    profissional.CRM = user.CRM;
                     profissional.Especializacoes = user.Especializacoes;
 
                     await mediadorHandler.EnviarComando(mapper.Map<AdicionarProfissionalComando>(profissional));
