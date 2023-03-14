@@ -128,6 +128,8 @@ namespace MarcaPlantao.Infra.IoC
             servicos.AddScoped<IRequestHandler<AdicionarOfertaComando, bool>, OfertaCommandHandler>();
             servicos.AddScoped<IRequestHandler<AtualizarOfertaComando, bool>, OfertaCommandHandler>();
             servicos.AddScoped<IRequestHandler<RemoverOfertaComando, bool>, OfertaCommandHandler>();
+            servicos.AddScoped<IRequestHandler<AdicionarProfissionalOfertaComando, bool>, OfertaCommandHandler>();
+            servicos.AddScoped<IRequestHandler<RemoverProfissionalOfertaComando, bool>, OfertaCommandHandler>();
 
             servicos.AddScoped<IRequestHandler<AdicionarPlantaoComando, bool>, PlantaoCommandHandler>();
             servicos.AddScoped<IRequestHandler<AtualizarPlantaoComando, bool>, PlantaoCommandHandler>();

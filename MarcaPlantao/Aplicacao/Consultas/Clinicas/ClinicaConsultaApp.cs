@@ -24,12 +24,12 @@ namespace MarcaPlantao.Aplicacao.Consultas.Clinicas
 
         public async Task<ClinicaDados> ObterPorId(Guid id)
         {
-            return mapper.Map<ClinicaDados>(await clinicaRepositorio.ObterPorId(id));
+            return mapper.Map<ClinicaDados>(await clinicaRepositorio.ObterClinicaEnderecoPorId(id));
         }
 
         public async Task<List<ClinicaDados>> ObterTodos()
         {
-            return mapper.Map<List<ClinicaDados>>(await clinicaRepositorio.ObterTodos());
+            return mapper.Map<List<ClinicaDados>>(await clinicaRepositorio.ObterTodasClinicaEndereco());
         }
     }
 }

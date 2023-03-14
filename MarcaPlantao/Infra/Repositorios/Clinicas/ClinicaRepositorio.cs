@@ -1,6 +1,7 @@
 ﻿using MarcaPlantao.Dominio.Clinicas;
 using MarcaPlantao.Infra.Contexto;
 using MarcaPlantao.Infra.Repositorios.Enderecos;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,20 @@ namespace MarcaPlantao.Infra.Repositorios.Clinicas
     {
         public ClinicaRepositorio(ContextoMarcaPlantao db) : base(db)
         {
+        }
+
+        public async Task<Clinica> ObterClinicaEnderecoPorId(Guid id)
+        {
+            return await Db.Clinicas.AsNoTracking()
+                .Include(x => x.Endereco)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<List<Clinica>> ObterTodasClinicaEndereco()
+        {
+            return await Db.Clinicas.AsNoTracking()
+                .Include(x => x.Endereco)
+                .ToListAsync();
         }
     }
 }

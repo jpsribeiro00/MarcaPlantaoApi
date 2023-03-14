@@ -46,13 +46,5 @@ namespace MarcaPlantao_Api.Controllers.Clinicas
 
             return Response(resultado);
         }
-
-        [HttpDelete("RemoverClinica")]
-        public async Task<IActionResult> Remover(Guid Id)
-        {
-            var resultado = await clinicaServicoApp.RemoverAsync(Id);
-
-            return Response(resultado);
-        }
     }
 }

@@ -167,7 +167,7 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                     x.Id,
                     x.RazaoSocial,
                     x.Endereco,
-                    x.Ofertas
+                    x.Imagem
                 ));
 
             CreateMap<ClinicaDados, AtualizarClinicaComando>()
@@ -175,7 +175,7 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                     x.Id,
                     x.RazaoSocial,
                     x.Endereco,
-                    x.Ofertas
+                    x.Imagem
                 ));
 
             CreateMap<ClinicaDados, RemoverClinicaComando>()

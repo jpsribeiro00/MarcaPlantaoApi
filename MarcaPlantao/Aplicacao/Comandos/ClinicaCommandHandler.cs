@@ -15,6 +15,7 @@ using MarcaPlantao.Dominio.Enderecos;
 using MarcaPlantao_Infraestrutura.ObjetoDominio;
 using MarcaPlantao.Dominio.Clinicas;
 using MarcaPlantao.Dominio.Ofertas;
+using MarcaPlantao.Dominio.Profissionais;
 
 namespace MarcaPlantao.Aplicacao.Comandos
 {
@@ -43,7 +44,7 @@ namespace MarcaPlantao.Aplicacao.Comandos
                 var clinica = new Clinica();
                 clinica.RazaoSocial = request.RazaoSocial;
                 clinica.Endereco = mapper.Map<Endereco>(request.Endereco);
-                clinica.Ofertas = mapper.Map<ICollection<Oferta>>(request.Ofertas);
+                clinica.Imagem = request.Imagem;
 
                 await clinicaRepositorio.Adicionar(clinica);
 
@@ -72,7 +73,7 @@ namespace MarcaPlantao.Aplicacao.Comandos
                 clinica.Id = request.Id;
                 clinica.RazaoSocial = request.RazaoSocial;
                 clinica.Endereco = mapper.Map<Endereco>(request.Endereco);
-                clinica.Ofertas = mapper.Map<ICollection<Oferta>>(request.Ofertas);
+                clinica.Imagem = request.Imagem;
 
                 await clinicaRepositorio.Atualizar(clinica);
 

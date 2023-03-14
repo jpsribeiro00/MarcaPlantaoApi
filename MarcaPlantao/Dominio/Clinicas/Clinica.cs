@@ -17,6 +17,8 @@ namespace MarcaPlantao.Dominio.Clinicas
     {
         public string RazaoSocial { get; set; }
 
+        public byte[]? Imagem { get; set; }
+
         //Ef Relations
         public Guid EnderecoId { get; set; }
 

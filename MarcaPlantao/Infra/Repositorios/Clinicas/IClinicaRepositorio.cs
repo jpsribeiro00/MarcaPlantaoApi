@@ -10,5 +10,8 @@ namespace MarcaPlantao.Infra.Repositorios.Clinicas
 {
     public interface IClinicaRepositorio : IRepositorio<Clinica>
     {
+        Task<Clinica> ObterClinicaEnderecoPorId(Guid Id);
+
+        Task<List<Clinica>> ObterTodasClinicaEndereco();
     }
 }

@@ -28,7 +28,7 @@ namespace MarcaPlantao.Infra.Mapeamentos.Profissionais
                 .HasColumnType("varchar(1)");
 
             builder.Property(c => c.Imagem)
-                .HasColumnType("binary(16)");
+                .HasColumnType("varbinary");
 
             builder.Property(c => c.Telefone)
                 .HasColumnType("varchar(11)");

@@ -14,8 +14,8 @@ namespace MarcaPlantao.Aplicacao.Dados.Clinicas
 
         public string RazaoSocial { get; set; }
 
-        public EnderecoDados? Endereco { get; set; }
+        public byte[]? Imagem { get; set; }
 
-        public List<OfertaDados>? Ofertas { get; set; }
+        public EnderecoDados? Endereco { get; set; }
     }
 }

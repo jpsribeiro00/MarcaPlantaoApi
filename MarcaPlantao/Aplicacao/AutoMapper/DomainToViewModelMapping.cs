@@ -48,7 +48,8 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
 
             CreateMap<Oferta, OfertaDados>();
 
-            CreateMap<Clinica, ClinicaDados>();
+            CreateMap<Clinica, ClinicaDados>()
+                .ForMember(d => d.Imagem, o => o.MapFrom(sess => sess.Imagem));
 
             CreateMap<Especializacao, EspecializacaoDados>();
 
