@@ -22,14 +22,14 @@ namespace MarcaPlantao.Aplicacao.Consultas.Especializacoes
             this.mapper = mapper;
         }
 
-        public async Task<EspecializacaoDados> ObterPorId(Guid id)
+        public async Task<EspecializacaoSimplificadoDados> ObterPorId(Guid id)
         {
-            return mapper.Map<EspecializacaoDados>(await especializacaoRepositorio.ObterPorId(id));
+            return mapper.Map<EspecializacaoSimplificadoDados>(await especializacaoRepositorio.ObterPorId(id));
         }
 
-        public async Task<List<EspecializacaoDados>> ObterTodos()
+        public async Task<List<EspecializacaoSimplificadoDados>> ObterTodos()
         {
-            return mapper.Map<List<EspecializacaoDados>>(await especializacaoRepositorio.ObterTodos());
+            return mapper.Map<List<EspecializacaoSimplificadoDados>>(await especializacaoRepositorio.ObterTodos());
         }
     }
 }

@@ -10,8 +10,8 @@ namespace MarcaPlantao.Aplicacao.Consultas.Especializacoes
 {
     public interface IEspecializacaoConsultaApp
     {
-        Task<EspecializacaoDados> ObterPorId(Guid id);
+        Task<EspecializacaoSimplificadoDados> ObterPorId(Guid id);
 
-        Task<List<EspecializacaoDados>> ObterTodos();
+        Task<List<EspecializacaoSimplificadoDados>> ObterTodos();
     }
 }
