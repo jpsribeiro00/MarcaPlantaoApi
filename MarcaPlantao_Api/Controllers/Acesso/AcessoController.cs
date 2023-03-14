@@ -19,12 +19,12 @@ namespace MarcaPlantao_Api.Controllers.Acesso
 {
     [ApiController]
     [AllowAnonymous]
-    public class LoginController : ApiControllerBase
+    public class AcessoController : ApiControllerBase
     {
         private readonly IAutenticacaoServico servicoAutenticacao;
         private readonly ConfiguracaoApp configuracaoApp;
 
-        public LoginController(INotificationHandler<NotificacaoDominio> notifications, IMediatorHandler mediator,
+        public AcessoController(INotificationHandler<NotificacaoDominio> notifications, IMediatorHandler mediator,
             IAutenticacaoServico servicoAutenticacao, IOptions<ConfiguracaoApp> configuracaoApp) : base(notifications, mediator)
         {
             this.servicoAutenticacao = servicoAutenticacao;
@@ -52,7 +52,6 @@ namespace MarcaPlantao_Api.Controllers.Acesso
             return Response();
         }
 
-        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromQuery] string email, string senha)
         {
@@ -66,6 +65,14 @@ namespace MarcaPlantao_Api.Controllers.Acesso
             
 
             return BadRequest("Usuário ou senha inválida");
+        }
+
+        [HttpGet("AdministradoresPorClinica")]
+        public async Task<IActionResult> AdministradoresPorClinica(Guid clinicaId)
+        {
+            var result = await servicoAutenticacao.ObterAdministradoresPorClinica(clinicaId);
+
+            return Response(result);
         }
 
         private async Task<string> GerarToken(string Email)

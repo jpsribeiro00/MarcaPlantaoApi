@@ -33,9 +33,9 @@ namespace MarcaPlantao.Aplicacao.Servicos.Clinicas
             return await mediador.EnviarComando(adicionarComando);
         }
 
-        public async Task<bool> AtualizarAsync(ClinicaDados clinicaDados)
+        public async Task<bool> AtualizarAsync(ClinicaArquivoDados clinicaDados)
         {
-            var atualizarComando = mapper.Map<AtualizarClinicaComando>(clinicaDados);
+            var atualizarComando = mapper.Map<AtualizarClinicaComando>(mapper.Map<ClinicaDados>(clinicaDados));
             return await mediador.EnviarComando(atualizarComando);
         }
 

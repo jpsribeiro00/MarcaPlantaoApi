@@ -7,7 +7,8 @@ using MarcaPlantao.Aplicacao.Comandos.ProfissionalComandos;
 using MarcaPlantao.Aplicacao.Consultas.Clinicas;
 using MarcaPlantao.Aplicacao.Consultas.Enderecos;
 using MarcaPlantao.Aplicacao.Consultas.Especializacoes;
-using MarcaPlantao.Aplicacao.Consultas.Eventos;
+using MarcaPlantao.Aplicacao.Consultas.EventosClinica;
+using MarcaPlantao.Aplicacao.Consultas.EventosProfissionais;
 using MarcaPlantao.Aplicacao.Consultas.Ofertas;
 using MarcaPlantao.Aplicacao.Consultas.Plantoes;
 using MarcaPlantao.Aplicacao.Consultas.Profissionais;
@@ -21,7 +22,8 @@ using MarcaPlantao.Dominio.Autorizacao;
 using MarcaPlantao.Dominio.Usuarios;
 using MarcaPlantao.Infra.Contexto;
 using MarcaPlantao.Infra.Repositorios.Clinicas;
-using MarcaPlantao.Infra.Repositorios.Consultas.Eventos;
+using MarcaPlantao.Infra.Repositorios.Consultas.EventosClinica;
+using MarcaPlantao.Infra.Repositorios.Consultas.EventosProfissional;
 using MarcaPlantao.Infra.Repositorios.Enderecos;
 using MarcaPlantao.Infra.Repositorios.Especializacoes;
 using MarcaPlantao.Infra.Repositorios.Ofertas;
@@ -84,7 +86,9 @@ namespace MarcaPlantao.Infra.IoC
 
             servicos.AddScoped<IPlantaoRepositorio, PlantaoRepositorio>();
 
-            servicos.AddScoped<IEventoRepositorio, EventoRepositorio>();
+            servicos.AddScoped<IEventoClinicaRepositorio, EventoClinicaRepositorio>();
+
+            servicos.AddScoped<IEventosProfissionalRepositorio, EventosProfissionalRepositorio>();
 
             //Servicos
             servicos.AddScoped<IProfissionalServicoApp, ProfissionalServicoApp>();
@@ -110,7 +114,9 @@ namespace MarcaPlantao.Infra.IoC
 
             servicos.AddScoped<IPlantaoConsultaApp, PlantaoConsultaApp>();
 
-            servicos.AddScoped<IEventoConsultaApp, EventoConsultaApp>();
+            servicos.AddScoped<IEventoClinicaConsultaApp, EventoClinicaConsultaApp>();
+
+            servicos.AddScoped<IEventoProfissionalConsultaApp, EventoProfissionalConsultaApp>();
 
             //Comandos
             servicos.AddScoped<IRequestHandler<AdicionarProfissionalComando, bool>, ProfissionalCommandHandler>();

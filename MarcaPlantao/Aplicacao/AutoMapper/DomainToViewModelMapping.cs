@@ -3,7 +3,8 @@ using MarcaPlantao.Aplicacao.Dados.Acesso;
 using MarcaPlantao.Aplicacao.Dados.Clinicas;
 using MarcaPlantao.Aplicacao.Dados.Endereco;
 using MarcaPlantao.Aplicacao.Dados.Especializacoes;
-using MarcaPlantao.Aplicacao.Dados.Eventos;
+using MarcaPlantao.Aplicacao.Dados.EventosClinica;
+using MarcaPlantao.Aplicacao.Dados.EventosProfissionais;
 using MarcaPlantao.Aplicacao.Dados.Ofertas;
 using MarcaPlantao.Aplicacao.Dados.Plantoes;
 using MarcaPlantao.Aplicacao.Dados.Profissionais;
@@ -55,7 +56,8 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
 
             CreateMap<Plantao, PlantaoDados>();
 
-            CreateMap<Evento, EventoDados>();
+            CreateMap<EventoClinica, EventoClinicaDados>();
+            CreateMap<EventoProfissional, EventoProfissionalDados>();
 
             CreateMap<Especializacao, EspecializacaoSimplificadoDados>()
                 .ForMember(d => d.Id, o => o.MapFrom(sess => sess.Id))

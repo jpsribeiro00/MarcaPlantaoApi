@@ -96,6 +96,9 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
             CreateMap<ProfissionalDados, Profissional>();
 
             CreateMap<ProfissonalArquivoDados, ProfissionalDados>()
+                .ForMember(d => d.Imagem, o => o.MapFrom(sess => FormatarImagemArquivoByte(sess.Imagem)));
+
+            CreateMap<ClinicaArquivoDados, ClinicaDados>()
                 .ForMember(d => d.Imagem, o => o.MapFrom(sess => FormatarImagemArquivoByte(sess.Imagem))); ;
 
             CreateMap<AdicionarOfertaDados, AdicionarOfertaComando>()

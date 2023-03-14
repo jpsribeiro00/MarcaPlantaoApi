@@ -19,5 +19,7 @@ namespace MarcaPlantao.Aplicacao.Servicos.Acesso
         Task<IList<string>> RetornarRoles(ApplicationUser applicationUser);
 
         Task<ObterUsuario> Login(string email, string senha, bool isPersistent, bool lockoutOnFailure);
+
+        Task<List<ObterUsuarioAdministrador>> ObterAdministradoresPorClinica(Guid clinicaId);
     }
 }

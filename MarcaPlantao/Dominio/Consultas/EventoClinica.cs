@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarcaPlantao.Aplicacao.Dados.Eventos
+namespace MarcaPlantao.Dominio.Consultas
 {
-    public class EventoDados
+    public class EventoClinica
     {
         public Guid Id { get; set; }
         public string Titulo { get; set; }

@@ -159,6 +159,11 @@ namespace MarcaPlantao.Aplicacao.Servicos.Acesso
             return null;
         }
 
+        public async Task<List<ObterUsuarioAdministrador>> ObterAdministradoresPorClinica(Guid clinicaId)
+        {
+            return mapper.Map<List<ObterUsuarioAdministrador>>(await appDbContext.Users.Where(x => x.ClinicaId == clinicaId).ToListAsync());
+        }
+
         public async Task<ApplicationUser> RetornarUsuario(string Email)
         {
             return await _userManager.FindByEmailAsync(Email);

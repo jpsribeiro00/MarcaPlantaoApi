@@ -11,7 +11,7 @@ namespace MarcaPlantao.Aplicacao.Servicos.Clinicas
     {
         Task<bool> AdicionarAsync(ClinicaDados clinicaDados);
 
-        Task<bool> AtualizarAsync(ClinicaDados clinicaDados);
+        Task<bool> AtualizarAsync(ClinicaArquivoDados clinicaDados);
 
         Task<bool> RemoverAsync(Guid id);
 

@@ -27,7 +27,8 @@ namespace MarcaPlantao.Infra.Contexto
         public DbSet<Oferta> Ofertas { get; set; }
         public DbSet<Especializacao> Especializacoes { get; set; }
         public DbSet<Plantao> Plantoes { get; set; }
-        public DbSet<Evento> Eventos { get; set; }
+        public DbSet<EventoClinica> EventosClinicas { get; set; }
+        public DbSet<EventoProfissional> EventosProfissionais { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -54,14 +55,22 @@ namespace MarcaPlantao.Infra.Contexto
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientCascade;
 
-            //Consultas
+            //Consultas 
 
             modelBuilder
-                .Entity<Evento>(
+                .Entity<EventoClinica>(
                     eb =>
                     {
                         eb.HasNoKey();
                         eb.ToView("View_EventosOfertaPlantao");
+                    });
+
+            modelBuilder
+                .Entity<EventoProfissional>(
+                    eb =>
+                    {
+                        eb.HasNoKey();
+                        eb.ToView("View_EventosProfissionais");
                     });
 
             base.OnModelCreating(modelBuilder);
