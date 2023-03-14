@@ -30,18 +30,18 @@ namespace MarcaPlantao.Aplicacao.Servicos.Profissionais
             return await mediador.EnviarComando(adicionarComando);
         }
 
-        public async Task<bool> AtualizarAsync(ProfissonalArquivoDados profissional)
+        public async Task<bool> AtualizarAsync(AtualizarProfissionalDados profissional)
         {
-            var atualizarComando = mapper.Map<AdicionarProfissionalComando>(mapper.Map<ProfissionalDados>(profissional));
+            var atualizarComando = mapper.Map<AtualizarProfissionalComando>(profissional);
             return await mediador.EnviarComando(atualizarComando);
         }
 
-        public async Task<ProfissionalDados> ObterPorId(Guid id)
+        public async Task<ObterProfissionalDados> ObterPorId(Guid id)
         {
             return await profissionalConsultaApp.ObterPorId(id);
         }
 
-        public async Task<List<ProfissionalDados>> ObterTodos()
+        public async Task<List<ObterProfissionalDados>> ObterTodos()
         {
             return await profissionalConsultaApp.ObterTodos();
         }

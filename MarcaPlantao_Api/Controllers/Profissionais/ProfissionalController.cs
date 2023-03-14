@@ -40,17 +40,9 @@ namespace MarcaPlantao_Api.Controllers.Profissionais
         }
 
         [HttpPut("AtualizarProfissional")]
-        public async Task<IActionResult> Atualizar([FromBody] ProfissonalArquivoDados profissional)
+        public async Task<IActionResult> Atualizar([FromBody] AtualizarProfissionalDados profissional)
         {
             var resultado = await profissionalServico.AtualizarAsync(profissional);
-
-            return Response(resultado);
-        }
-
-        [HttpDelete("RemoverProfissional")]
-        public async Task<IActionResult> Remover(Guid Id)
-        {
-            var resultado = await profissionalServico.RemoverAsync(Id);
 
             return Response(resultado);
         }

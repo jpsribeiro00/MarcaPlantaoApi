@@ -9,8 +9,8 @@ namespace MarcaPlantao.Aplicacao.Consultas.Profissionais
 {
     public interface IProfissionalConsultaApp
     {
-        Task<ProfissionalDados> ObterPorId(Guid idUsuario);
+        Task<ObterProfissionalDados> ObterPorId(Guid idUsuario);
 
-        Task<List<ProfissionalDados>> ObterTodos();
+        Task<List<ObterProfissionalDados>> ObterTodos();
     }
 }

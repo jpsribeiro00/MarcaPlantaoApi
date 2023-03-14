@@ -43,6 +43,9 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                 .ForMember(d => d.Master, o => o.MapFrom(sess => sess.Master));
 
             CreateMap<Profissional, ProfissionalDados>()
+                .ForMember(d => d.Imagem, o => o.MapFrom(sess => sess.Imagem)); 
+
+            CreateMap<Profissional, ObterProfissionalDados>()
                 .ForMember(d => d.Imagem, o => o.MapFrom(sess => sess.Imagem));
 
             CreateMap<Endereco, EnderecoDados>();

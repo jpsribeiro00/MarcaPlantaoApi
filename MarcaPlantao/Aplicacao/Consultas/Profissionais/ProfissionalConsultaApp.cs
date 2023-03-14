@@ -20,14 +20,14 @@ namespace MarcaPlantao.Aplicacao.Consultas.Profissionais
             this.mapper = mapper;
         }
 
-        public async Task<ProfissionalDados> ObterPorId(Guid id)
+        public async Task<ObterProfissionalDados> ObterPorId(Guid id)
         {
-            return mapper.Map<ProfissionalDados>(await profissionalRepositorio.ObterPorId(id));
+            return mapper.Map<ObterProfissionalDados>(await profissionalRepositorio.ObterProfissionalPorId(id));
         }
 
-        public async Task<List<ProfissionalDados>> ObterTodos()
+        public async Task<List<ObterProfissionalDados>> ObterTodos()
         {
-            return mapper.Map<List<ProfissionalDados>>(await profissionalRepositorio.ObterTodos());
+            return mapper.Map<List<ObterProfissionalDados>>(await profissionalRepositorio.ObterTodosProfissionais());
         }
     }
 }

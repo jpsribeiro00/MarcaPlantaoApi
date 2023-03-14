@@ -73,19 +73,16 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                     x.Especializacoes
                 ));
 
-            CreateMap<ProfissionalDados, AtualizarProfissionalComando>()
+            CreateMap<AtualizarProfissionalDados, AtualizarProfissionalComando>()
                 .ConstructUsing(x => new AtualizarProfissionalComando(
                     x.Id,
                     x.Nome,
                     x.DataNascimento,
                     x.Genero,
                     x.Telefone,
-                    x.Imagem,
+                    FormatarImagemArquivoByte(x.Imagem),
                     x.CRM,
-                    x.CPF,
-                    x.UserId,
-                    x.Ofertas,
-                    x.Especializacoes
+                    x.CPF
                 ));
 
             CreateMap<ProfissionalDados, RemoverProfissionalComando>()

@@ -11,12 +11,12 @@ namespace MarcaPlantao.Aplicacao.Servicos.Profissionais
     {
         Task<bool> AdicionarAsync(ProfissionalDados foto);
 
-        Task<bool> AtualizarAsync(ProfissonalArquivoDados foto);
+        Task<bool> AtualizarAsync(AtualizarProfissionalDados foto);
 
         Task<bool> RemoverAsync(Guid id);
 
-        Task<ProfissionalDados> ObterPorId(Guid idUsuario);
+        Task<ObterProfissionalDados> ObterPorId(Guid idUsuario);
 
-        Task<List<ProfissionalDados>> ObterTodos();
+        Task<List<ObterProfissionalDados>> ObterTodos();
     }
 }

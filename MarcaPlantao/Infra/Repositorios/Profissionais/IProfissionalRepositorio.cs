@@ -13,5 +13,9 @@ namespace MarcaPlantao.Infra.Repositorios.Profissionais
         Task<bool> ValidarProfissional(string crm, string cpf);
 
         Task<Profissional> ObterProfissionalPorUsuario(string UsuarioId);
+
+        Task<Profissional> ObterProfissionalPorId(Guid id);
+
+        Task<List<Profissional>> ObterTodosProfissionais();
     }
 }

@@ -21,6 +21,21 @@ namespace MarcaPlantao.Infra.Repositorios.Profissionais
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<Profissional> ObterProfissionalPorId(Guid id)
+        {
+            return await Db.Profissionais
+                .Include(x => x.Especializacoes)
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<List<Profissional>> ObterTodosProfissionais()
+        {
+            return await Db.Profissionais
+                .Include(x => x.Especializacoes)
+                .ToListAsync();
+        }
+
         public async Task<bool> ValidarProfissional(string crm, string cpf)
         {
            return (await Buscar(x => crm.Equals(x.CRM) && cpf.Equals(x.CPF))).Count() > 0;

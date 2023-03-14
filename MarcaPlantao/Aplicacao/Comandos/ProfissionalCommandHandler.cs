@@ -78,9 +78,14 @@ namespace MarcaPlantao.Aplicacao.Comandos
             {
                 if (!ValidarComando(request)) return false;
 
+                if (!(await this.profissionalRepositorio.ValidarProfissional(request.CRM, request.CPF))) 
+                {
+                    await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, "CPF ou CRM informados já foram cadastrados"));
+                    return false;
+                }
+
                 var profissional = new Profissional();
                 profissional.Id = request.Id;
-                profissional.UserId = request.UserId;
                 profissional.Genero = request.Genero;
                 profissional.Telefone = request.Telefone;
                 profissional.DataNascimento = request.DataNascimento;
@@ -88,8 +93,6 @@ namespace MarcaPlantao.Aplicacao.Comandos
                 profissional.Imagem = request.Imagem;
                 profissional.CRM = request.CRM;
                 profissional.CPF = request.CPF;
-                profissional.Ofertas = mapper.Map<ICollection<Oferta>>(request.Ofertas);
-                profissional.Especializacoes = await BuscarEspecializacoes(request.Especializacoes);
 
                 await profissionalRepositorio.Atualizar(profissional);
 
