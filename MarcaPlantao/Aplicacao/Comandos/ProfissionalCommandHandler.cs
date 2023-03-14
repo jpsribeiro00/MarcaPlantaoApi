@@ -130,11 +130,11 @@ namespace MarcaPlantao.Aplicacao.Comandos
             }
         }
 
-        private async Task<List<Especializacao>> BuscarEspecializacoes(List<EspecializacaoDados> especializacaoDados) 
+        private async Task<List<Especializacao>> BuscarEspecializacoes(List<EspecializacaoSimplificadoDados> especializacoesId)
         {
             var Especializacoes = new List<Especializacao>();
 
-            foreach (Especializacao item in mapper.Map<ICollection<Especializacao>>(especializacaoDados))
+            foreach (EspecializacaoSimplificadoDados item in especializacoesId)
             {
                 var especializacaoBanco = await especializacaoRepositorio.ObterPorId(item.Id);
 

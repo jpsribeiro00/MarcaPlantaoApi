@@ -10,8 +10,8 @@ namespace MarcaPlantao.Aplicacao.Consultas.Ofertas
 {
     public interface IOfertaConsultaApp
     {
-        Task<OfertaDados> ObterPorId(Guid id);
+        Task<ObterOfertaDados> ObterPorId(Guid id);
 
-        Task<List<OfertaDados>> ObterTodos();
+        Task<List<ObterOfertaDados>> ObterTodos();
     }
 }

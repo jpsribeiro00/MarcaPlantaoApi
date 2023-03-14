@@ -24,11 +24,8 @@ namespace MarcaPlantao.Aplicacao.Comandos.OfertaComandos
         public double ValorHoraExtra { get; set; }
         public DateTime DataCadastro { get; set; }
         public int Pagamento { get; set; }
-        public List<ProfissionalDados> Profissionais { get; set; }
-        public List<EspecializacaoDados> Especializacoes { get; set; }
-        public ClinicaDados Clinica { get; set; }
 
-        public AtualizarOfertaComando(Guid id, string titulo, string descricao, DateTime dataInicial, DateTime dataFinal, string turno, double valor, double valorHoraExtra, DateTime dataCadastro, int pagamento, List<ProfissionalDados> profissionais, List<EspecializacaoDados> especializacoes, ClinicaDados clinica)
+        public AtualizarOfertaComando(Guid id, string titulo, string descricao, DateTime dataInicial, DateTime dataFinal, string turno, double valor, double valorHoraExtra, DateTime dataCadastro, int pagamento)
         {
             Id = id;
             Titulo = titulo;
@@ -40,9 +37,6 @@ namespace MarcaPlantao.Aplicacao.Comandos.OfertaComandos
             ValorHoraExtra = valorHoraExtra;
             DataCadastro = dataCadastro;
             Pagamento = pagamento;
-            Profissionais = profissionais;
-            Especializacoes = especializacoes;
-            Clinica = clinica;
         }
 
         public override bool EhValido()
@@ -84,14 +78,6 @@ namespace MarcaPlantao.Aplicacao.Comandos.OfertaComandos
             RuleFor(c => c.Pagamento)
                 .NotEmpty()
                 .WithMessage("Pagamento não foi informado.");
-
-            RuleFor(c => c.Clinica)
-                .NotEmpty()
-                .WithMessage("Clinica não foi informado.");
-
-            RuleFor(c => c.Especializacoes)
-                .NotEmpty()
-                .WithMessage("Especializações não foram informado.");
         }
     }
 }

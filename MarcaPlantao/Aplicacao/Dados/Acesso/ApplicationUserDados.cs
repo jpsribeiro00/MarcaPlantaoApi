@@ -28,6 +28,6 @@ namespace MarcaPlantao.Aplicacao.Dados.Acesso
         public IFormFile? Imagem { get; set; }
         public string CRM { get; set; }
         public string CPF { get; set; }
-        public List<EspecializacaoDados> Especializacoes { get; set; }
+        public List<EspecializacaoSimplificadoDados> Especializacoes { get; set; }
     }
 }

@@ -24,11 +24,10 @@ namespace MarcaPlantao.Aplicacao.Comandos.OfertaComandos
         public double ValorHoraExtra { get; set; }
         public DateTime DataCadastro { get; set; }
         public int Pagamento { get; set; }
-        public List<ProfissionalDados> Profissionais { get; set; }
-        public List<EspecializacaoDados> Especializacoes { get; set; }
-        public ClinicaDados Clinica { get; set; }
+        public List<Guid> Especializacoes { get; set; }
+        public Guid ClinicaId { get; set; }
 
-        public AdicionarOfertaComando(Guid id, string titulo, string descricao, DateTime dataInicial, DateTime dataFinal, string turno, double valor, double valorHoraExtra, DateTime dataCadastro, int pagamento, List<ProfissionalDados> profissionais, List<EspecializacaoDados> especializacoes, ClinicaDados clinica)
+        public AdicionarOfertaComando(Guid id, string titulo, string descricao, DateTime dataInicial, DateTime dataFinal, string turno, double valor, double valorHoraExtra, DateTime dataCadastro, int pagamento, List<Guid> especializacoes, Guid clinica)
         {
             Id = id;
             Titulo = titulo;
@@ -40,9 +39,8 @@ namespace MarcaPlantao.Aplicacao.Comandos.OfertaComandos
             ValorHoraExtra = valorHoraExtra;
             DataCadastro = dataCadastro;
             Pagamento = pagamento;
-            Profissionais = profissionais;
             Especializacoes = especializacoes;
-            Clinica = clinica;
+            ClinicaId = clinica;
         }
 
         public override bool EhValido()
@@ -85,13 +83,13 @@ namespace MarcaPlantao.Aplicacao.Comandos.OfertaComandos
                 .NotNull()
                 .WithMessage("Pagamento não foi informado.");
 
-            RuleFor(c => c.Clinica)
+            RuleFor(c => c.ClinicaId)
                 .NotEmpty()
                 .WithMessage("Clinica não foi informado.");
 
             RuleFor(c => c.Especializacoes)
                 .NotEmpty()
-                .WithMessage("Especializações não foram informado.");
+                .WithMessage("Especializações não foram informados.");
         }
     }
 }

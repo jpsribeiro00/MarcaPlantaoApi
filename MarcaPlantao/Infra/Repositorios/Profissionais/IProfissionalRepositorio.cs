@@ -11,5 +11,7 @@ namespace MarcaPlantao.Infra.Repositorios.Profissionais
     public interface IProfissionalRepositorio : IRepositorio<Profissional>
     {
         Task<bool> ValidarProfissional(string crm, string cpf);
+
+        Task<Profissional> ObterProfissionalPorUsuario(string UsuarioId);
     }
 }

@@ -8,7 +8,7 @@ namespace MarcaPlantao.Aplicacao.Servicos.Acesso
 {
     public interface IAutenticacaoServico
     {
-        Task<ApplicationUser> RegistrarUsuario(ApplicationUserDados user, string role, string claims);
+        Task<ObterUsuarioProfissional> RegistrarUsuario(ApplicationUserDados user, string role, string claims);
 
         Task RegistrarAdministrador(AdministratorUserDados user, string role, string claims);
 
@@ -18,6 +18,6 @@ namespace MarcaPlantao.Aplicacao.Servicos.Acesso
 
         Task<IList<string>> RetornarRoles(ApplicationUser applicationUser);
 
-        Task<UsuarioDados> Login(string email, string senha, bool isPersistent, bool lockoutOnFailure);
+        Task<ObterUsuario> Login(string email, string senha, bool isPersistent, bool lockoutOnFailure);
     }
 }

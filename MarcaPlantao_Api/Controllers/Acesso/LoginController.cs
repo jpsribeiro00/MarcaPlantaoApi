@@ -37,8 +37,9 @@ namespace MarcaPlantao_Api.Controllers.Acesso
             if (!ModelState.IsValid) return Response(registerUser);
 
             var result = await servicoAutenticacao.RegistrarUsuario(registerUser, "Profissional", "Adicionar");
+            result.Token = await GerarToken(result.Email);
 
-            return Response(await GerarToken(result.Email));
+            return Response(result);
         }
 
         [HttpPost("RegistrarAdministrador")]
@@ -57,7 +58,7 @@ namespace MarcaPlantao_Api.Controllers.Acesso
         {
             var result = await servicoAutenticacao.Login(email,senha,false,true);
 
-            if(result.Email != null) 
+            if(result != null) 
             {
                 result.Token = await GerarToken(email);
                 return Response(result);

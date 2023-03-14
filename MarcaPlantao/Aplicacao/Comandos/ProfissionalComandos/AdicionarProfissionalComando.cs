@@ -24,9 +24,9 @@ namespace MarcaPlantao.Aplicacao.Comandos.ProfissionalComandos
         public string CPF { get; set; }
         public string UserId { get; set; }
         public List<OfertaDados> Ofertas { get; set; }
-        public List<EspecializacaoDados> Especializacoes { get; set; }
+        public List<EspecializacaoSimplificadoDados> Especializacoes { get; set; }
 
-        public AdicionarProfissionalComando(Guid id, string nome, DateTime dataNascimento, string genero, string telefone, byte[]? imagem, string cRM, string cPF, string userId, List<OfertaDados> ofertas, List<EspecializacaoDados> especializacoes)
+        public AdicionarProfissionalComando(Guid id, string nome, DateTime dataNascimento, string genero, string telefone, byte[]? imagem, string cRM, string cPF, string userId, List<OfertaDados> ofertas, List<EspecializacaoSimplificadoDados> especializacoes)
         {
             Id = id;
             Nome = nome;

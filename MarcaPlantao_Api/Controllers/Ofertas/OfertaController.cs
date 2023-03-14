@@ -39,7 +39,7 @@ namespace MarcaPlantao_Api.Controllers.Ofertas
         }
 
         [HttpPost("AdicionarOferta")]
-        public async Task<IActionResult> Adicionar([FromBody] OfertaDados Oferta)
+        public async Task<IActionResult> Adicionar([FromBody] AdicionarOfertaDados Oferta)
         {
             var resultado = await ofertaServicoApp.AdicionarAsync(Oferta);
 
@@ -47,7 +47,7 @@ namespace MarcaPlantao_Api.Controllers.Ofertas
         }
 
         [HttpPut("AtualizarOferta")]
-        public async Task<IActionResult> Atualizar([FromBody] OfertaDados Oferta)
+        public async Task<IActionResult> Atualizar([FromBody] AtualizarOfertaDados Oferta)
         {
             var resultado = await ofertaServicoApp.AtualizarAsync(Oferta);
 
@@ -58,6 +58,22 @@ namespace MarcaPlantao_Api.Controllers.Ofertas
         public async Task<IActionResult> Remover(Guid Id)
         {
             var resultado = await ofertaServicoApp.RemoverAsync(Id);
+
+            return Response(resultado);
+        }
+
+        [HttpPut("AdicionarProfissionalOferta")]
+        public async Task<IActionResult> AdicionarProfissionalOferta([FromBody] AdicionarRemoverProfissionalOfertaDados Oferta)
+        {
+            var resultado = await ofertaServicoApp.AdicionarProfissionalOfertaAsync(Oferta.ProfissionalId, Oferta.OfertaId);
+
+            return Response(resultado);
+        }
+
+        [HttpPut("RemoverProfissionalOferta")]
+        public async Task<IActionResult> RemoverProfissionalOferta([FromBody] AdicionarRemoverProfissionalOfertaDados Oferta)
+        {
+            var resultado = await ofertaServicoApp.RemoverProfissionalOfertaAsync(Oferta.ProfissionalId, Oferta.OfertaId);
 
             return Response(resultado);
         }

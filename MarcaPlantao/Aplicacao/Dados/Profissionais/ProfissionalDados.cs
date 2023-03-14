@@ -17,11 +17,11 @@ namespace MarcaPlantao.Aplicacao.Dados.Profissionais
         public DateTime DataNascimento { get; set; }
         public string Genero { get; set; }
         public string Telefone { get; set; }
-        public byte[] Imagem { get; set; }
+        public byte[]? Imagem { get; set; }
         public string CRM { get; set; }
         public string CPF { get; set; }
         public string UserId { get; set; }
         public List<OfertaDados>? Ofertas { get; set; }
-        public List<EspecializacaoDados>? Especializacoes { get; set; }
+        public List<EspecializacaoSimplificadoDados>? Especializacoes { get; set; }
     }
 }

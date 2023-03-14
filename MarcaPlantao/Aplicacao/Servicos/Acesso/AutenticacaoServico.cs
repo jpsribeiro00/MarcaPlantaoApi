@@ -4,6 +4,7 @@ using MarcaPlantao.Aplicacao.Dados.Acesso;
 using MarcaPlantao.Aplicacao.Dados.Especializacoes;
 using MarcaPlantao.Aplicacao.Dados.Profissionais;
 using MarcaPlantao.Aplicacao.Dados.Usuario;
+using MarcaPlantao.Dominio.Profissionais;
 using MarcaPlantao.Dominio.Usuarios;
 using MarcaPlantao.Infra.Contexto;
 using MarcaPlantao.Infra.Repositorios.Profissionais;
@@ -40,12 +41,14 @@ namespace MarcaPlantao.Aplicacao.Servicos.Acesso
             this.profissionalRepositorio = profissionalRepositorio;
         }
 
-        public async Task<ApplicationUser> RegistrarUsuario(ApplicationUserDados user, string role, string claims)
+        public async Task<ObterUsuarioProfissional> RegistrarUsuario(ApplicationUserDados user, string role, string claims)
         {
             if (!(await this.profissionalRepositorio.ValidarProfissional(user.CRM, user.CPF)))
             {
                 ApplicationUser usuario = mapper.Map<ApplicationUser>(user);
+
                 var result = await _userManager.CreateAsync(usuario, user.Password);
+
                 if (result.Succeeded)
                 {
                     await _userManager.AddClaimAsync(usuario, new Claim(role, claims));
@@ -54,29 +57,10 @@ namespace MarcaPlantao.Aplicacao.Servicos.Acesso
 
                     await _userManager.UpdateAsync(resultUser);
 
-                    var profissional = new ProfissionalDados();
-                    profissional.Nome = user.Nome;
+                    var usuarioProfissional = mapper.Map<ObterUsuarioProfissional>(await RegistrarProfissional(user, resultUser.Id));
+                    usuarioProfissional.Email = resultUser.Email;
 
-                    if (user.Imagem != null && user.Imagem.Length > 0)
-                    {
-                        using (var ms = new MemoryStream())
-                        {
-                            user.Imagem.CopyTo(ms);
-                            profissional.Imagem = ms.ToArray();
-                        }
-                    }
-
-                    profissional.DataNascimento = user.DataNascimento;
-                    profissional.Telefone = user.Telefone;
-                    profissional.UserId = resultUser.Id;
-                    profissional.Genero = user.Genero;
-                    profissional.CPF = user.CPF;
-                    profissional.CRM = user.CRM;
-                    profissional.Especializacoes = user.Especializacoes;
-
-                    await mediadorHandler.EnviarComando(mapper.Map<AdicionarProfissionalComando>(profissional));
-
-                    return resultUser;
+                    return usuarioProfissional;
                 }
                 foreach (var error in result.Errors)
                 {
@@ -89,6 +73,42 @@ namespace MarcaPlantao.Aplicacao.Servicos.Acesso
             }
 
             return null;
+        }
+
+        public async Task<Profissional> RegistrarProfissional(ApplicationUserDados user, string UserId) 
+        {
+            var profissional = new ProfissionalDados();
+            profissional.Nome = user.Nome;
+
+            if (user.Imagem != null && user.Imagem.Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    user.Imagem.CopyTo(ms);
+                    profissional.Imagem = ms.ToArray();
+                }
+            }
+            else
+            {
+                profissional.Imagem = null;
+            }
+
+            profissional.DataNascimento = user.DataNascimento;
+            profissional.Telefone = user.Telefone;
+            profissional.UserId = UserId;
+            profissional.Genero = user.Genero;
+            profissional.CPF = user.CPF;
+            profissional.CRM = user.CRM;
+            profissional.Especializacoes = user.Especializacoes;
+
+            await mediadorHandler.EnviarComando(mapper.Map<AdicionarProfissionalComando>(profissional));
+
+            return await ObterUsuarioProfissional(UserId);
+        }
+
+        public async Task<Profissional> ObterUsuarioProfissional(string UserId) 
+        {
+            return await profissionalRepositorio.ObterProfissionalPorUsuario(UserId);
         }
 
         public async Task RegistrarAdministrador(AdministratorUserDados user, string role, string claims)
@@ -106,15 +126,26 @@ namespace MarcaPlantao.Aplicacao.Servicos.Acesso
             }
         }
 
-        public async Task<UsuarioDados> Login(string email, string senha, bool isPersistent, bool lockoutOnFailure)
+        public async Task<ObterUsuario> Login(string email, string senha, bool isPersistent, bool lockoutOnFailure)
         {
-            UsuarioDados usuarioDados = new UsuarioDados();
-
             SignInResult result = await _signInManager.PasswordSignInAsync(email, senha, false, true);
 
             if (result.Succeeded)
             {
-                usuarioDados = mapper.Map<UsuarioDados>(await RetornarUsuario(email));
+                var resultUser = await RetornarUsuario(email);
+
+                if(resultUser.ClinicaId == null) 
+                {
+                    var usuarioProfissional = mapper.Map<ObterUsuarioProfissional>(await ObterUsuarioProfissional(resultUser.Id));
+                    usuarioProfissional.Email = resultUser.Email;
+
+                    return usuarioProfissional;
+                }
+                else 
+                {
+                    return mapper.Map<ObterUsuarioAdministrador>(resultUser);
+                }
+                
             }
             if(result.IsNotAllowed)
             {
@@ -125,13 +156,12 @@ namespace MarcaPlantao.Aplicacao.Servicos.Acesso
                 await mediadorHandler.PublicarNotificacao(new NotificacaoDominio("Login", "Usuário desativado"));
             }
 
-            return usuarioDados;
+            return null;
         }
 
         public async Task<ApplicationUser> RetornarUsuario(string Email)
         {
-            var userId = await _userManager.FindByEmailAsync(Email);
-            return await appDbContext.Users.SingleOrDefaultAsync(x => x.Id == userId.Id);
+            return await _userManager.FindByEmailAsync(Email);
         }
 
         public async Task<IList<Claim>> RetornarClaims(ApplicationUser applicationUser)

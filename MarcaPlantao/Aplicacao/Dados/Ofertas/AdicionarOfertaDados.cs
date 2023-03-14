@@ -1,7 +1,4 @@
-﻿using MarcaPlantao.Aplicacao.Dados.Clinicas;
-using MarcaPlantao.Aplicacao.Dados.Especializacoes;
-using MarcaPlantao.Aplicacao.Dados.Profissionais;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MarcaPlantao.Aplicacao.Dados.Ofertas
 {
-    public class OfertaDados
+    public class AdicionarOfertaDados
     {
         public Guid Id { get; set; }
         public string Titulo { get; set; }
@@ -21,7 +18,6 @@ namespace MarcaPlantao.Aplicacao.Dados.Ofertas
         public double ValorHoraExtra { get; set; }
         public DateTime DataCadastro { get; set; }
         public int Pagamento { get; set; }
-        public List<Guid>? Profissionais { get; set; }
         public List<Guid> Especializacoes { get; set; }
         public Guid ClinicaId { get; set; }
     }

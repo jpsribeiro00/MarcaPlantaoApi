@@ -9,14 +9,18 @@ namespace MarcaPlantao.Aplicacao.Servicos.Ofertas
 {
     public interface IOfertaServicoApp
     {
-        Task<bool> AdicionarAsync(OfertaDados OfertaDados);
+        Task<bool> AdicionarAsync(AdicionarOfertaDados OfertaDados);
 
-        Task<bool> AtualizarAsync(OfertaDados OfertaDados);
+        Task<bool> AtualizarAsync(AtualizarOfertaDados OfertaDados);
 
         Task<bool> RemoverAsync(Guid id);
 
-        Task<OfertaDados> ObterPorId(Guid id);
+        Task<bool> AdicionarProfissionalOfertaAsync(Guid profissionalId, Guid ofertaId);
 
-        Task<List<OfertaDados>> ObterTodos();
+        Task<bool> RemoverProfissionalOfertaAsync(Guid profissionalId, Guid ofertaId);
+
+        Task<ObterOfertaDados> ObterPorId(Guid id);
+
+        Task<List<ObterOfertaDados>> ObterTodos();
     }
 }

@@ -22,14 +22,14 @@ namespace MarcaPlantao.Aplicacao.Consultas.Ofertas
             this.mapper = mapper;
         }
 
-        public async Task<OfertaDados> ObterPorId(Guid id)
+        public async Task<ObterOfertaDados> ObterPorId(Guid id)
         {
-            return mapper.Map<OfertaDados>(await ofertaRepositorio.ObterPorId(id));
+            return mapper.Map<ObterOfertaDados>(await ofertaRepositorio.ObterOfertaProfissionalEspecializacaoPorId(id));
         }
 
-        public async Task<List<OfertaDados>> ObterTodos()
+        public async Task<List<ObterOfertaDados>> ObterTodos()
         {
-            return mapper.Map<List<OfertaDados>>(await ofertaRepositorio.ObterTodos());
+            return mapper.Map<List<ObterOfertaDados>>(await ofertaRepositorio.ObterTodasOfertaProfissionalEspecializacao());
         }
     }
 }

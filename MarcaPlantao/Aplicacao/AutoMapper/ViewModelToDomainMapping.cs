@@ -98,7 +98,7 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
             CreateMap<ProfissonalArquivoDados, ProfissionalDados>()
                 .ForMember(d => d.Imagem, o => o.MapFrom(sess => FormatarImagemArquivoByte(sess.Imagem))); ;
 
-            CreateMap<OfertaDados, AdicionarOfertaComando>()
+            CreateMap<AdicionarOfertaDados, AdicionarOfertaComando>()
                 .ConstructUsing(x => new AdicionarOfertaComando(
                     x.Id,
                     x.Titulo,
@@ -110,12 +110,11 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                     x.ValorHoraExtra,
                     x.DataCadastro,
                     x.Pagamento,
-                    x.Profissionais,
                     x.Especializacoes,
-                    x.Clinica
+                    x.ClinicaId
                 ));
 
-            CreateMap<OfertaDados, AtualizarOfertaComando>()
+            CreateMap<AtualizarOfertaDados, AtualizarOfertaComando>()
                 .ConstructUsing(x => new AtualizarOfertaComando(
                     x.Id,
                     x.Titulo,
@@ -126,10 +125,7 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                     x.Valor,
                     x.ValorHoraExtra,
                     x.DataCadastro,
-                    x.Pagamento,
-                    x.Profissionais,
-                    x.Especializacoes,
-                    x.Clinica
+                    x.Pagamento
                 ));
 
             CreateMap<OfertaDados, RemoverOfertaComando>()

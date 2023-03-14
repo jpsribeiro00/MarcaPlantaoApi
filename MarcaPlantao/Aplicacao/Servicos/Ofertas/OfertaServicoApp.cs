@@ -27,24 +27,24 @@ namespace MarcaPlantao.Aplicacao.Servicos.Ofertas
             this.ofertaConsultaApp = ofertaConsultaApp;
         }
 
-        public async Task<bool> AdicionarAsync(OfertaDados OfertaDados)
+        public async Task<bool> AdicionarAsync(AdicionarOfertaDados OfertaDados)
         {
             var adicionarComando = mapper.Map<AdicionarOfertaComando>(OfertaDados);
             return await mediador.EnviarComando(adicionarComando);
         }
 
-        public async Task<bool> AtualizarAsync(OfertaDados OfertaDados)
+        public async Task<bool> AtualizarAsync(AtualizarOfertaDados OfertaDados)
         {
             var atualizarComando = mapper.Map<AtualizarOfertaComando>(OfertaDados);
             return await mediador.EnviarComando(atualizarComando);
         }
 
-        public async Task<OfertaDados> ObterPorId(Guid id)
+        public async Task<ObterOfertaDados> ObterPorId(Guid id)
         {
             return await ofertaConsultaApp.ObterPorId(id);
         }
 
-        public async Task<List<OfertaDados>> ObterTodos()
+        public async Task<List<ObterOfertaDados>> ObterTodos()
         {
             return await ofertaConsultaApp.ObterTodos();
         }
@@ -56,6 +56,16 @@ namespace MarcaPlantao.Aplicacao.Servicos.Ofertas
 
             var removerComando = mapper.Map<RemoverOfertaComando>(oferta);
             return await mediador.EnviarComando(removerComando);
+        }
+
+        public async Task<bool> AdicionarProfissionalOfertaAsync(Guid profissionalId, Guid ofertaId)
+        {
+            return await mediador.EnviarComando(new AdicionarProfissionalOfertaComando(profissionalId, ofertaId));
+        }
+
+        public async Task<bool> RemoverProfissionalOfertaAsync(Guid profissionalId, Guid ofertaId)
+        {
+            return await mediador.EnviarComando(new RemoverProfissionalOfertaComando(profissionalId, ofertaId));
         }
     }
 }

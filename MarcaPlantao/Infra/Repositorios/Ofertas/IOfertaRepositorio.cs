@@ -11,5 +11,8 @@ namespace MarcaPlantao.Infra.Repositorios.Ofertas
 {
     public interface IOfertaRepositorio : IRepositorio<Oferta>
     {
+        Task<Oferta> ObterOfertaProfissionalEspecializacaoPorId(Guid Id);
+
+        Task<List<Oferta>> ObterTodasOfertaProfissionalEspecializacao();
     }
 }

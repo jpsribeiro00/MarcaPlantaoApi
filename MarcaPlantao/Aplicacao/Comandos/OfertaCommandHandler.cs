@@ -23,19 +23,24 @@ namespace MarcaPlantao.Aplicacao.Comandos
     public class OfertaCommandHandler :
         IRequestHandler<AdicionarOfertaComando, bool>,
         IRequestHandler<AtualizarOfertaComando, bool>,
-        IRequestHandler<RemoverOfertaComando, bool>
+        IRequestHandler<RemoverOfertaComando, bool>,
+        IRequestHandler<AdicionarProfissionalOfertaComando, bool>,
+        IRequestHandler<RemoverProfissionalOfertaComando, bool>
 
     {
         private readonly IMediatorHandler mediadorHandler;
         private readonly IOfertaRepositorio ofertaRepositorio;
         private readonly IEspecializacaoRepositorio especializacaoRepositorio;
+        private readonly IProfissionalRepositorio profissionalRepositorio;
         private readonly IMapper mapper;
 
-        public OfertaCommandHandler(IMediatorHandler mediadorHandler, IOfertaRepositorio ofertaRepositorio, IEspecializacaoRepositorio especializacaoRepositorio, IMapper mapper)
+        public OfertaCommandHandler(IMediatorHandler mediadorHandler, IOfertaRepositorio ofertaRepositorio,
+            IEspecializacaoRepositorio especializacaoRepositorio, IProfissionalRepositorio profissionalRepositorio, IMapper mapper)
         {
             this.mediadorHandler = mediadorHandler;
             this.ofertaRepositorio = ofertaRepositorio;
             this.especializacaoRepositorio = especializacaoRepositorio;
+            this.profissionalRepositorio = profissionalRepositorio;
             this.mapper = mapper;
         }
 
@@ -55,9 +60,8 @@ namespace MarcaPlantao.Aplicacao.Comandos
                 oferta.DataInicial = request.DataInicial;
                 oferta.DataFinal = request.DataFinal;
                 oferta.Titulo = request.Titulo;
-                oferta.Profissionais = mapper.Map<ICollection<Profissional>>(request.Profissionais);
                 oferta.Especializacoes = await BuscarEspecializacoes(request.Especializacoes);
-                oferta.ClinicaId = request.Clinica.Id;
+                oferta.ClinicaId = request.ClinicaId;
 
                 await ofertaRepositorio.Adicionar(oferta);
 
@@ -93,8 +97,6 @@ namespace MarcaPlantao.Aplicacao.Comandos
                 oferta.DataInicial = request.DataInicial;
                 oferta.DataFinal = request.DataFinal;
                 oferta.Titulo = request.Titulo;
-                oferta.Profissionais = mapper.Map<ICollection<Profissional>>(request.Profissionais);
-                oferta.ClinicaId = request.Clinica.Id;
 
                 await ofertaRepositorio.Atualizar(oferta);
 
@@ -136,13 +138,103 @@ namespace MarcaPlantao.Aplicacao.Comandos
             }
         }
 
-        private async Task<List<Especializacao>> BuscarEspecializacoes(List<EspecializacaoDados> especializacaoDados)
+        public async Task<bool> Handle(AdicionarProfissionalOfertaComando request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                if (!ValidarComando(request)) return false;
+
+                var oferta = await ofertaRepositorio.ObterPorId(request.OfertaId);
+
+                if(oferta != null) 
+                {
+                    var profissional = await profissionalRepositorio.ObterPorId(request.ProfissionalId);
+
+                    if(profissional != null) 
+                    {
+                        oferta.Profissionais.Add(profissional);
+
+                        await ofertaRepositorio.Atualizar(oferta);
+
+                        return true;
+                    }
+                    else 
+                    {
+                        await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, "Profissional informado não existe"));
+                        return false;
+                    }
+                }
+                else 
+                {
+                    await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, "Oferta informada não existe"));
+                    return false;
+                }
+
+            }
+            catch (DominioException ex)
+            {
+                await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, ex.Message));
+                return false;
+            }
+            catch (Exception ex)
+            {
+                await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, ex.Message));
+                return false;
+            }
+        }
+
+        public async Task<bool> Handle(RemoverProfissionalOfertaComando request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                if (!ValidarComando(request)) return false;
+
+                var oferta = await ofertaRepositorio.ObterPorId(request.OfertaId);
+
+                if (oferta != null)
+                {
+                    var profissional = await profissionalRepositorio.ObterPorId(request.ProfissionalId);
+
+                    if (profissional != null)
+                    {
+                        oferta.Profissionais.Remove(profissional);
+
+                        await ofertaRepositorio.Atualizar(oferta);
+
+                        return true;
+                    }
+                    else
+                    {
+                        await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, "Profissional informado não existe"));
+                        return false;
+                    }
+                }
+                else
+                {
+                    await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, "Oferta informada não existe"));
+                    return false;
+                }
+
+            }
+            catch (DominioException ex)
+            {
+                await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, ex.Message));
+                return false;
+            }
+            catch (Exception ex)
+            {
+                await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, ex.Message));
+                return false;
+            }
+        }
+
+        private async Task<List<Especializacao>> BuscarEspecializacoes(List<Guid> especializacoesId)
         {
             var Especializacoes = new List<Especializacao>();
 
-            foreach (Especializacao item in mapper.Map<ICollection<Especializacao>>(especializacaoDados))
+            foreach (Guid item in especializacoesId)
             {
-                var especializacaoBanco = await especializacaoRepositorio.ObterPorId(item.Id);
+                var especializacaoBanco = await especializacaoRepositorio.ObterPorId(item);
 
                 if (especializacaoBanco != null)
                 {
@@ -151,6 +243,23 @@ namespace MarcaPlantao.Aplicacao.Comandos
             }
 
             return Especializacoes;
+        }
+
+        private async Task<List<Profissional>> BuscarProfissionais(List<Guid> profissionaisId)
+        {
+            var profissionais = new List<Profissional>();
+
+            foreach (Guid item in profissionaisId)
+            {
+                var profissionalBanco = await profissionalRepositorio.ObterPorId(item);
+
+                if (profissionalBanco != null)
+                {
+                    profissionais.Add(profissionalBanco);
+                }
+            }
+
+            return profissionais;
         }
 
         private bool ValidarComando(Comando mensagem)

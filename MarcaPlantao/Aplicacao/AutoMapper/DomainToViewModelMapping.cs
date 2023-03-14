@@ -55,6 +55,29 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
             CreateMap<Plantao, PlantaoDados>();
 
             CreateMap<Evento, EventoDados>();
+
+            CreateMap<Especializacao, EspecializacaoSimplificadoDados>()
+                .ForMember(d => d.Id, o => o.MapFrom(sess => sess.Id))
+                .ForMember(d => d.Descricao, o => o.MapFrom(sess => sess.Descricao));
+
+            CreateMap<Profissional, ProfissionalSimplificadoDados>()
+                .ForMember(d => d.Id, o => o.MapFrom(sess => sess.Id))
+                .ForMember(d => d.Nome, o => o.MapFrom(sess => sess.Nome))
+                .ForMember(d => d.Imagem, o => o.MapFrom(sess => sess.Imagem));
+
+            CreateMap<Oferta, ObterOfertaDados>();
+
+            CreateMap<Profissional, ObterUsuarioProfissional>()
+                .ForMember(d => d.Id, o => o.MapFrom(sess => sess.Id))
+                .ForMember(d => d.Nome, o => o.MapFrom(sess => sess.Nome))
+                .ForMember(d => d.Imagem, o => o.MapFrom(sess => sess.Imagem))
+                .ForMember(d => d.Especializacoes, o => o.MapFrom(sess => sess.Especializacoes));
+
+            CreateMap<ApplicationUser, ObterUsuarioAdministrador>()
+                .ForMember(d => d.Id, o => o.MapFrom(sess => sess.Id))
+                .ForMember(d => d.Master, o => o.MapFrom(sess => sess.Master))
+                .ForMember(d => d.Email, o => o.MapFrom(sess => sess.Email))
+                .ForMember(d => d.ClinicaId, o => o.MapFrom(sess => sess.ClinicaId));
         }
     }
 }
