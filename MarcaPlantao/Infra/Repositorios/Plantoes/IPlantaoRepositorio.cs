@@ -10,5 +10,8 @@ namespace MarcaPlantao.Infra.Repositorios.Plantoes
 {
     public interface IPlantaoRepositorio : IRepositorio<Plantao>
     {
+        Task<Plantao> ObterPlantaoProfissionalOfertaPorId(Guid Id);
+
+        Task<List<Plantao>> ObterTodasPlantaoProfissionalOferta();
     }
 }

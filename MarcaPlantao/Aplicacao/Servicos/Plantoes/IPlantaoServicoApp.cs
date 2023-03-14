@@ -11,7 +11,9 @@ namespace MarcaPlantao.Aplicacao.Servicos.Plantoes
     {
         Task<bool> AdicionarAsync(GerarPlantaoDados foto);
 
-        Task<bool> AtualizarAsync(PlantaoDados foto);
+        Task<bool> AtualizarAsync(AtualizarPlantaoDados foto);
+
+        Task<bool> AtualizarStatusAsync(AtualizarStatusPlantaoDados foto);
 
         Task<bool> RemoverAsync(Guid id);
 

@@ -23,10 +23,8 @@ namespace MarcaPlantao.Aplicacao.Comandos.PlantaoComandos
         public DateTime DataPagamento { get; set; }
         public string Comprovante { get; set; }
         public DateTime DataCadastro { get; set; }
-        public ProfissionalDados Profissional { get; set; }
-        public OfertaDados Oferta { get; set; }
 
-        public AtualizarPlantaoComando(Guid id, int status, DateTime dataInicial, DateTime dataFinal, double valorTotal, double horaExtra, string desconto, int statusPagamento, DateTime dataPagamento, string comprovante, DateTime dataCadastro, ProfissionalDados profissional, OfertaDados oferta)
+        public AtualizarPlantaoComando(Guid id, int status, DateTime dataInicial, DateTime dataFinal, double valorTotal, double horaExtra, string desconto, int statusPagamento, DateTime dataPagamento, string comprovante, DateTime dataCadastro)
         {
             Id = id;
             Status = status;
@@ -39,8 +37,6 @@ namespace MarcaPlantao.Aplicacao.Comandos.PlantaoComandos
             DataPagamento = dataPagamento;
             Comprovante = comprovante;
             DataCadastro = dataCadastro;
-            Profissional = profissional;
-            Oferta = oferta;
         }
 
         public override bool EhValido()

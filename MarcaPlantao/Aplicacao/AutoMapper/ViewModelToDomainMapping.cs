@@ -196,7 +196,13 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                     x.ProfissionalId
                 ));
 
-            CreateMap<PlantaoDados, AtualizarPlantaoComando>()
+            CreateMap<AtualizarStatusPlantaoDados, AtualizarStatusPlantaoComando>()
+                .ConstructUsing(x => new AtualizarStatusPlantaoComando(
+                    x.Id,
+                    x.Status
+                ));
+
+            CreateMap<AtualizarPlantaoDados, AtualizarPlantaoComando>()
                 .ConstructUsing(x => new AtualizarPlantaoComando(
                     x.Id,
                     x.Status,
@@ -208,9 +214,7 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                     x.StatusPagamento,
                     x.DataPagamento,
                     x.Comprovante,
-                    x.DataCadastro,
-                    x.Profissional,
-                    x.Oferta
+                    x.DataCadastro
                 ));
 
             CreateMap<PlantaoDados, RemoverPlantaoComando>()

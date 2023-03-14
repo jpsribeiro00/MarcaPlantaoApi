@@ -22,12 +22,12 @@ namespace MarcaPlantao.Aplicacao.Consultas.Plantoes
 
         public async Task<PlantaoDados> ObterPorId(Guid id)
         {
-            return mapper.Map<PlantaoDados>(await plantaoRepositorio.ObterPorId(id));
+            return mapper.Map<PlantaoDados>(await plantaoRepositorio.ObterPlantaoProfissionalOfertaPorId(id));
         }
 
         public async Task<List<PlantaoDados>> ObterTodos()
         {
-            return mapper.Map<List<PlantaoDados>>(await plantaoRepositorio.ObterTodos());
+            return mapper.Map<List<PlantaoDados>>(await plantaoRepositorio.ObterTodasPlantaoProfissionalOferta());
         }
     }
 }

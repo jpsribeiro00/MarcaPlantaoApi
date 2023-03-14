@@ -2,6 +2,7 @@
 using MarcaPlantao.Aplicacao.Comandos.PlantaoComandos;
 using MarcaPlantao.Aplicacao.Consultas.Plantoes;
 using MarcaPlantao.Aplicacao.Dados.Plantoes;
+using MarcaPlantao.Dominio.Plantoes;
 using MarcaPlantao_Infraestrutura.Comunicacao.Mediador;
 using System;
 using System.Collections.Generic;
@@ -30,9 +31,15 @@ namespace MarcaPlantao.Aplicacao.Servicos.Plantoes
             return await mediador.EnviarComando(adicionarComando);
         }
 
-        public async Task<bool> AtualizarAsync(PlantaoDados plantao)
+        public async Task<bool> AtualizarAsync(AtualizarPlantaoDados plantao)
         {
             var atualizarComando = mapper.Map<AtualizarPlantaoComando>(plantao);
+            return await mediador.EnviarComando(atualizarComando);
+        }
+
+        public async Task<bool> AtualizarStatusAsync(AtualizarStatusPlantaoDados plantao)
+        {
+            var atualizarComando = mapper.Map<AtualizarStatusPlantaoComando>(plantao);
             return await mediador.EnviarComando(atualizarComando);
         }
 

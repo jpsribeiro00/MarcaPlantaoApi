@@ -23,7 +23,8 @@ namespace MarcaPlantao.Aplicacao.Comandos
     public class PlantaoCommandHandler :
         IRequestHandler<AtualizarPlantaoComando, bool>,
         IRequestHandler<RemoverPlantaoComando, bool>,
-        IRequestHandler<AdicionarPlantaoComando, bool>
+        IRequestHandler<AdicionarPlantaoComando, bool>, 
+        IRequestHandler<AtualizarStatusPlantaoComando, bool>
     {
         private readonly IMediatorHandler mediadorHandler;
         private readonly IPlantaoRepositorio plantaoRepositorio;
@@ -91,8 +92,6 @@ namespace MarcaPlantao.Aplicacao.Comandos
 
                 var plantao = new Plantao();
                 plantao.Id = request.Id;
-                plantao.ProfissionalId = request.Profissional.Id;
-                plantao.OfertaId = request.Oferta.Id;
                 plantao.Status = (StatusPlantao)request.Status;
                 plantao.DataInicial = request.DataInicial;
                 plantao.DataFinal = request.DataFinal;
@@ -131,6 +130,38 @@ namespace MarcaPlantao.Aplicacao.Comandos
 
                 return true;
 
+            }
+            catch (DominioException ex)
+            {
+                await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, ex.Message));
+                return false;
+            }
+            catch (Exception ex)
+            {
+                await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, ex.Message));
+                return false;
+            }
+        }
+
+        public async Task<bool> Handle(AtualizarStatusPlantaoComando request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                if (!ValidarComando(request)) return false;
+
+                var plantao = await plantaoRepositorio.ObterPorId(request.Id);
+
+                if(plantao != null) 
+                {
+                    plantao.Status = (StatusPlantao)request.Status;
+
+                    await plantaoRepositorio.Atualizar(plantao);
+
+                    return true;
+                }
+
+                await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, "Plantão informado não encontrado"));
+                return false;
             }
             catch (DominioException ex)
             {

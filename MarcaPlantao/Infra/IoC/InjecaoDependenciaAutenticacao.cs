@@ -140,6 +140,7 @@ namespace MarcaPlantao.Infra.IoC
             servicos.AddScoped<IRequestHandler<AdicionarPlantaoComando, bool>, PlantaoCommandHandler>();
             servicos.AddScoped<IRequestHandler<AtualizarPlantaoComando, bool>, PlantaoCommandHandler>();
             servicos.AddScoped<IRequestHandler<RemoverPlantaoComando, bool>, PlantaoCommandHandler>();
+            servicos.AddScoped<IRequestHandler<AtualizarStatusPlantaoComando, bool>, PlantaoCommandHandler>(); 
         }
     }
 }

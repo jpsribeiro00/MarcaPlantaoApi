@@ -46,9 +46,17 @@ namespace MarcaPlantao_Api.Controllers.Plantoes
         }
 
         [HttpPut("AtualizarPlantao")]
-        public async Task<IActionResult> Atualizar([FromBody] PlantaoDados Plantao)
+        public async Task<IActionResult> Atualizar([FromBody] AtualizarPlantaoDados Plantao)
         {
             var resultado = await plantaoServicoApp.AtualizarAsync(Plantao);
+
+            return Response(resultado);
+        }
+
+        [HttpPut("AtualizarStatusPlantao")]
+        public async Task<IActionResult> AtualizarStatusPlantao([FromBody] AtualizarStatusPlantaoDados Plantao)
+        {
+            var resultado = await plantaoServicoApp.AtualizarStatusAsync(Plantao);
 
             return Response(resultado);
         }
