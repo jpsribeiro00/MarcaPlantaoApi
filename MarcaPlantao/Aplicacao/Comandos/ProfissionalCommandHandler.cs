@@ -4,6 +4,7 @@ using MarcaPlantao.Aplicacao.Dados.Especializacoes;
 using MarcaPlantao.Dominio.Especializacoes;
 using MarcaPlantao.Dominio.Ofertas;
 using MarcaPlantao.Dominio.Profissionais;
+using MarcaPlantao.Infra.Repositorios.Clinicas;
 using MarcaPlantao.Infra.Repositorios.Especializacoes;
 using MarcaPlantao.Infra.Repositorios.Profissionais;
 using MarcaPlantao_Infraestrutura.Comunicacao.Mediador;
@@ -84,17 +85,23 @@ namespace MarcaPlantao.Aplicacao.Comandos
                     return false;
                 }
 
-                var profissional = new Profissional();
-                profissional.Id = request.Id;
-                profissional.Genero = request.Genero;
-                profissional.Telefone = request.Telefone;
-                profissional.DataNascimento = request.DataNascimento;
-                profissional.Nome = request.Nome;
-                profissional.Imagem = request.Imagem;
-                profissional.CRM = request.CRM;
-                profissional.CPF = request.CPF;
+                var profissionalExiste = await profissionalRepositorio.ObterPorId(request.Id);
 
-                await profissionalRepositorio.Atualizar(profissional);
+                if (profissionalExiste == null)
+                {
+                    await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, "Profissional informado não encontrado."));
+                    return false;
+                }
+
+                profissionalExiste.Genero = request.Genero;
+                profissionalExiste.Telefone = request.Telefone;
+                profissionalExiste.DataNascimento = request.DataNascimento;
+                profissionalExiste.Nome = request.Nome;
+                profissionalExiste.Imagem = request.Imagem;
+                profissionalExiste.CRM = request.CRM;
+                profissionalExiste.CPF = request.CPF;
+
+                await profissionalRepositorio.Atualizar(profissionalExiste);
 
                 return true;
 

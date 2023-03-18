@@ -4,6 +4,7 @@ using MarcaPlantao.Dominio.Especializacoes;
 using MarcaPlantao.Dominio.Ofertas;
 using MarcaPlantao.Dominio.Plantoes;
 using MarcaPlantao.Dominio.Profissionais;
+using MarcaPlantao.Infra.Repositorios.Clinicas;
 using MarcaPlantao.Infra.Repositorios.Ofertas;
 using MarcaPlantao.Infra.Repositorios.Plantoes;
 using MarcaPlantao.Infra.Repositorios.Profissionais;
@@ -90,20 +91,26 @@ namespace MarcaPlantao.Aplicacao.Comandos
             {
                 if (!ValidarComando(request)) return false;
 
-                var plantao = new Plantao();
-                plantao.Id = request.Id;
-                plantao.Status = (StatusPlantao)request.Status;
-                plantao.DataInicial = request.DataInicial;
-                plantao.DataFinal = request.DataFinal;
-                plantao.ValorTotal = request.ValorTotal;
-                plantao.HoraExtra = request.HoraExtra;
-                plantao.Desconto = request.Desconto;
-                plantao.StatusPagamento = (StatusPagamento)request.StatusPagamento;
-                plantao.DataPagamento = request.DataPagamento;
-                plantao.Comprovante = request.Comprovante;
-                plantao.DataCadastro = request.DataCadastro;
+                var plantaoExiste = await plantaoRepositorio.ObterPorId(request.Id);
 
-                await plantaoRepositorio.Atualizar(plantao);
+                if (plantaoExiste == null)
+                {
+                    await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, "Plantão informado não encontrado."));
+                    return false;
+                }
+
+                plantaoExiste.Status = (StatusPlantao)request.Status;
+                plantaoExiste.DataInicial = request.DataInicial;
+                plantaoExiste.DataFinal = request.DataFinal;
+                plantaoExiste.ValorTotal = request.ValorTotal;
+                plantaoExiste.HoraExtra = request.HoraExtra;
+                plantaoExiste.Desconto = request.Desconto;
+                plantaoExiste.StatusPagamento = (StatusPagamento)request.StatusPagamento;
+                plantaoExiste.DataPagamento = request.DataPagamento;
+                plantaoExiste.Comprovante = request.Comprovante;
+                plantaoExiste.DataCadastro = request.DataCadastro;
+
+                await plantaoRepositorio.Atualizar(plantaoExiste);
 
                 return true;
 

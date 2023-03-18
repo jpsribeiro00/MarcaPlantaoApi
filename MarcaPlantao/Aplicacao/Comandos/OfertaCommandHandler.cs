@@ -94,7 +94,6 @@ namespace MarcaPlantao.Aplicacao.Comandos
                     return false;
                 }
 
-                ofertaExiste.Id = request.Id;
                 ofertaExiste.Descricao = request.Descricao;
                 ofertaExiste.Pagamento = (Pagamento)request.Pagamento;
                 ofertaExiste.Turno = request.Turno;

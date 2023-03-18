@@ -16,6 +16,7 @@ using MarcaPlantao_Infraestrutura.ObjetoDominio;
 using MarcaPlantao.Dominio.Clinicas;
 using MarcaPlantao.Dominio.Ofertas;
 using MarcaPlantao.Dominio.Profissionais;
+using MarcaPlantao.Infra.Repositorios.Ofertas;
 
 namespace MarcaPlantao.Aplicacao.Comandos
 {
@@ -69,13 +70,19 @@ namespace MarcaPlantao.Aplicacao.Comandos
             {
                 if (!ValidarComando(request)) return false;
 
-                var clinica = new Clinica();
-                clinica.Id = request.Id;
-                clinica.RazaoSocial = request.RazaoSocial;
-                clinica.Endereco = mapper.Map<Endereco>(request.Endereco);
-                clinica.Imagem = request.Imagem;
+                var clinicaExiste = await clinicaRepositorio.ObterPorId(request.Id);
 
-                await clinicaRepositorio.Atualizar(clinica);
+                if (clinicaExiste == null)
+                {
+                    await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, "Clinica informada não encontrada."));
+                    return false;
+                }
+
+                clinicaExiste.RazaoSocial = request.RazaoSocial;
+                clinicaExiste.Endereco = mapper.Map<Endereco>(request.Endereco);
+                clinicaExiste.Imagem = request.Imagem;
+
+                await clinicaRepositorio.Atualizar(clinicaExiste);
 
                 return true;
 
