@@ -14,5 +14,7 @@ namespace MarcaPlantao.Infra.Repositorios.Ofertas
         Task<Oferta> ObterOfertaProfissionalEspecializacaoPorId(Guid Id);
 
         Task<List<Oferta>> ObterTodasOfertaProfissionalEspecializacao();
+
+        Task<Oferta> ObterOfertaModificarProfissionalPorId(Guid id);
     }
 }

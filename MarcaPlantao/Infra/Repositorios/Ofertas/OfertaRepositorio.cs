@@ -14,6 +14,13 @@ namespace MarcaPlantao.Infra.Repositorios.Ofertas
     {
         public OfertaRepositorio(ContextoMarcaPlantao db) : base(db) { }
 
+        public async Task<Oferta> ObterOfertaModificarProfissionalPorId(Guid id)
+        {
+            return await Db.Ofertas
+                .Include(x => x.Profissionais)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<Oferta> ObterOfertaProfissionalEspecializacaoPorId(Guid id)
         {
             return await Db.Ofertas.AsNoTracking()

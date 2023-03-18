@@ -76,7 +76,7 @@ namespace MarcaPlantao.Aplicacao.Comandos.OfertaComandos
                 .WithMessage("Valor de Hora Extra do Plantão não foi informado.");
 
             RuleFor(c => c.Pagamento)
-                .NotEmpty()
+                .NotNull()
                 .WithMessage("Pagamento não foi informado.");
         }
     }

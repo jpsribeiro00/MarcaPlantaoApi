@@ -86,19 +86,26 @@ namespace MarcaPlantao.Aplicacao.Comandos
             {
                 if (!ValidarComando(request)) return false;
 
-                var oferta = new Oferta();
-                oferta.Id = request.Id;
-                oferta.Descricao = request.Descricao;
-                oferta.Pagamento = (Pagamento)request.Pagamento;
-                oferta.Turno = request.Turno;
-                oferta.Valor = request.Valor;
-                oferta.ValorHoraExtra = request.ValorHoraExtra;
-                oferta.DataCadastro = request.DataCadastro;
-                oferta.DataInicial = request.DataInicial;
-                oferta.DataFinal = request.DataFinal;
-                oferta.Titulo = request.Titulo;
+                var ofertaExiste = await ofertaRepositorio.ObterPorId(request.Id);
 
-                await ofertaRepositorio.Atualizar(oferta);
+                if(ofertaExiste == null) 
+                {
+                    await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, "Oferta informada não encontrada."));
+                    return false;
+                }
+
+                ofertaExiste.Id = request.Id;
+                ofertaExiste.Descricao = request.Descricao;
+                ofertaExiste.Pagamento = (Pagamento)request.Pagamento;
+                ofertaExiste.Turno = request.Turno;
+                ofertaExiste.Valor = request.Valor;
+                ofertaExiste.ValorHoraExtra = request.ValorHoraExtra;
+                ofertaExiste.DataCadastro = request.DataCadastro;
+                ofertaExiste.DataInicial = request.DataInicial;
+                ofertaExiste.DataFinal = request.DataFinal;
+                ofertaExiste.Titulo = request.Titulo;
+
+                await ofertaRepositorio.Atualizar(ofertaExiste);
 
                 return true;
 
@@ -144,7 +151,7 @@ namespace MarcaPlantao.Aplicacao.Comandos
             {
                 if (!ValidarComando(request)) return false;
 
-                var oferta = await ofertaRepositorio.ObterPorId(request.OfertaId);
+                var oferta = await ofertaRepositorio.ObterOfertaModificarProfissionalPorId(request.OfertaId);
 
                 if(oferta != null) 
                 {
@@ -154,7 +161,7 @@ namespace MarcaPlantao.Aplicacao.Comandos
                     {
                         oferta.Profissionais.Add(profissional);
 
-                        await ofertaRepositorio.Atualizar(oferta);
+                        await ofertaRepositorio.SalvarMudancas();
 
                         return true;
                     }
@@ -189,25 +196,15 @@ namespace MarcaPlantao.Aplicacao.Comandos
             {
                 if (!ValidarComando(request)) return false;
 
-                var oferta = await ofertaRepositorio.ObterPorId(request.OfertaId);
+                var oferta = await ofertaRepositorio.ObterOfertaModificarProfissionalPorId(request.OfertaId);
 
                 if (oferta != null)
                 {
-                    var profissional = await profissionalRepositorio.ObterPorId(request.ProfissionalId);
+                    oferta.Profissionais.Remove(oferta.Profissionais.Where(x => x.Id == request.ProfissionalId).First());
 
-                    if (profissional != null)
-                    {
-                        oferta.Profissionais.Remove(profissional);
+                    await ofertaRepositorio.SalvarMudancas();
 
-                        await ofertaRepositorio.Atualizar(oferta);
-
-                        return true;
-                    }
-                    else
-                    {
-                        await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, "Profissional informado não existe"));
-                        return false;
-                    }
+                    return true;
                 }
                 else
                 {

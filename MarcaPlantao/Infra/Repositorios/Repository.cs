@@ -36,7 +36,7 @@ namespace MarcaPlantao.Infra.Repositorios
 
         public virtual async Task<List<TEntity>> ObterTodos()
         {
-            return await DbSet.ToListAsync();
+            return await DbSet.AsNoTracking().ToListAsync();
         }
 
         public virtual async Task Adicionar(TEntity entity)
@@ -54,6 +54,11 @@ namespace MarcaPlantao.Infra.Repositorios
         public virtual async Task Remover(Guid id)
         {
             DbSet.Remove(new TEntity { Id = id });
+            await Db.CompletarAsync();
+        }
+
+        public virtual async Task SalvarMudancas()
+        {
             await Db.CompletarAsync();
         }
 
