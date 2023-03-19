@@ -19,6 +19,7 @@ using MarcaPlantao.Aplicacao.Servicos.Ofertas;
 using MarcaPlantao.Aplicacao.Servicos.Plantoes;
 using MarcaPlantao.Aplicacao.Servicos.Profissionais;
 using MarcaPlantao.Dominio.Autorizacao;
+using MarcaPlantao.Dominio.Ofertas;
 using MarcaPlantao.Dominio.Usuarios;
 using MarcaPlantao.Infra.Contexto;
 using MarcaPlantao.Infra.Repositorios.Clinicas;
@@ -31,6 +32,7 @@ using MarcaPlantao.Infra.Repositorios.Plantoes;
 using MarcaPlantao.Infra.Repositorios.Profissionais;
 using MarcaPlantao_Infraestrutura.Comunicacao.Mediador;
 using MarcaPlantao_Infraestrutura.Mensagens.Notificacao;
+using MarcaPlantao_Infraestrutura.ObjetoDominio;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -131,7 +133,7 @@ namespace MarcaPlantao.Infra.IoC
             servicos.AddScoped<IRequestHandler<AtualizarClinicaComando, bool>, ClinicaCommandHandler>();
             servicos.AddScoped<IRequestHandler<RemoverClinicaComando, bool>, ClinicaCommandHandler>();
 
-            servicos.AddScoped<IRequestHandler<AdicionarOfertaComando, bool>, OfertaCommandHandler>();
+            servicos.AddScoped<IRequestHandler<AdicionarOfertaComando, Entidade>, OfertaCommandHandler>();
             servicos.AddScoped<IRequestHandler<AtualizarOfertaComando, bool>, OfertaCommandHandler>();
             servicos.AddScoped<IRequestHandler<RemoverOfertaComando, bool>, OfertaCommandHandler>();
             servicos.AddScoped<IRequestHandler<AdicionarProfissionalOfertaComando, bool>, OfertaCommandHandler>();

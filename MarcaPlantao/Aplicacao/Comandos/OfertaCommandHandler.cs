@@ -21,7 +21,7 @@ using MarcaPlantao.Infra.Repositorios.Especializacoes;
 namespace MarcaPlantao.Aplicacao.Comandos
 {
     public class OfertaCommandHandler :
-        IRequestHandler<AdicionarOfertaComando, bool>,
+        IRequestHandler<AdicionarOfertaComando, Entidade>,
         IRequestHandler<AtualizarOfertaComando, bool>,
         IRequestHandler<RemoverOfertaComando, bool>,
         IRequestHandler<AdicionarProfissionalOfertaComando, bool>,
@@ -44,11 +44,13 @@ namespace MarcaPlantao.Aplicacao.Comandos
             this.mapper = mapper;
         }
 
-        public async Task<bool> Handle(AdicionarOfertaComando request, CancellationToken cancellationToken)
+        public async Task<Entidade> Handle(AdicionarOfertaComando request, CancellationToken cancellationToken)
         {
+            Oferta ofertaAdicionada = new Oferta();
+
             try
             {
-                if (!ValidarComando(request)) return false;
+                if (!ValidarComando(request)) return ofertaAdicionada;
 
                 var oferta = new Oferta();
                 oferta.Descricao = request.Descricao;
@@ -63,20 +65,20 @@ namespace MarcaPlantao.Aplicacao.Comandos
                 oferta.Especializacoes = await BuscarEspecializacoes(request.Especializacoes);
                 oferta.ClinicaId = request.ClinicaId;
 
-                await ofertaRepositorio.Adicionar(oferta);
+                ofertaAdicionada = await ofertaRepositorio.AdicionarComRetornoDeObjeto(oferta);
 
-                return true;
+                return ofertaAdicionada;
 
             }
             catch (DominioException ex)
             {
                 await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, ex.Message));
-                return false;
+                return ofertaAdicionada;
             }
             catch (Exception ex)
             {
                 await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, ex.Message));
-                return false;
+                return ofertaAdicionada;
             }
         }
 
@@ -259,6 +261,18 @@ namespace MarcaPlantao.Aplicacao.Comandos
         }
 
         private bool ValidarComando(Comando mensagem)
+        {
+            if (mensagem.EhValido()) return true;
+
+            foreach (var error in mensagem.ResultadoValidacao.Errors)
+            {
+                mediadorHandler.PublicarNotificacao(new NotificacaoDominio(mensagem.Tipo, error.ErrorMessage));
+            }
+
+            return false;
+        }
+
+        private bool ValidarComando(ComandoAdicionar mensagem)
         {
             if (mensagem.EhValido()) return true;
 

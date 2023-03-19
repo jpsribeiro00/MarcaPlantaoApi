@@ -9,7 +9,7 @@ namespace MarcaPlantao.Aplicacao.Servicos.Ofertas
 {
     public interface IOfertaServicoApp
     {
-        Task<bool> AdicionarAsync(AdicionarOfertaDados OfertaDados);
+        Task<ObterOfertaDados> AdicionarAsync(AdicionarOfertaDados OfertaDados);
 
         Task<bool> AtualizarAsync(AtualizarOfertaDados OfertaDados);
 

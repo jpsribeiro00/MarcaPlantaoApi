@@ -5,6 +5,7 @@ using MarcaPlantao.Aplicacao.Consultas.Enderecos;
 using MarcaPlantao.Aplicacao.Consultas.Ofertas;
 using MarcaPlantao.Aplicacao.Dados.Endereco;
 using MarcaPlantao.Aplicacao.Dados.Ofertas;
+using MarcaPlantao.Dominio.Ofertas;
 using MarcaPlantao_Infraestrutura.Comunicacao.Mediador;
 using System;
 using System.Collections.Generic;
@@ -27,10 +28,10 @@ namespace MarcaPlantao.Aplicacao.Servicos.Ofertas
             this.ofertaConsultaApp = ofertaConsultaApp;
         }
 
-        public async Task<bool> AdicionarAsync(AdicionarOfertaDados OfertaDados)
+        public async Task<ObterOfertaDados> AdicionarAsync(AdicionarOfertaDados OfertaDados)
         {
             var adicionarComando = mapper.Map<AdicionarOfertaComando>(OfertaDados);
-            return await mediador.EnviarComando(adicionarComando);
+            return mapper.Map<ObterOfertaDados>((Oferta)await mediador.EnviarComandoAdicionar(adicionarComando));
         }
 
         public async Task<bool> AtualizarAsync(AtualizarOfertaDados OfertaDados)

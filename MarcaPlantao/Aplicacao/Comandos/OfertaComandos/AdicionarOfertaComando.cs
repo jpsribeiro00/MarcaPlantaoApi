@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MarcaPlantao.Aplicacao.Comandos.OfertaComandos
 {
-    public class AdicionarOfertaComando : Comando
+    public class AdicionarOfertaComando : ComandoAdicionar
     {
         public Guid Id { get; set; }
         public string Titulo { get; set; }

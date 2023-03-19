@@ -45,6 +45,14 @@ namespace MarcaPlantao.Infra.Repositorios
             await Db.CompletarAsync();
         }
 
+        public async Task<TEntity> AdicionarComRetornoDeObjeto(TEntity entity)
+        {
+            var estadoEntidade = DbSet.Add(entity);
+            await Db.CompletarAsync();
+
+            return estadoEntidade.Entity;
+        }
+
         public virtual async Task Atualizar(TEntity entity)
         {
             DbSet.Update(entity);
