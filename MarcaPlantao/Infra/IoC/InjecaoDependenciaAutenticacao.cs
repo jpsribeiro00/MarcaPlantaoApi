@@ -22,6 +22,7 @@ using MarcaPlantao.Dominio.Autorizacao;
 using MarcaPlantao.Dominio.Ofertas;
 using MarcaPlantao.Dominio.Usuarios;
 using MarcaPlantao.Infra.Contexto;
+using MarcaPlantao.Infra.Repositorios.Avaliacao;
 using MarcaPlantao.Infra.Repositorios.Clinicas;
 using MarcaPlantao.Infra.Repositorios.Consultas.EventosClinica;
 using MarcaPlantao.Infra.Repositorios.Consultas.EventosProfissional;
@@ -92,6 +93,10 @@ namespace MarcaPlantao.Infra.IoC
 
             servicos.AddScoped<IEventosProfissionalRepositorio, EventosProfissionalRepositorio>();
 
+            servicos.AddScoped<IAvaliacaoProfissionalRepositorio, AvaliacaoProfissionalRepositorio>();
+
+            servicos.AddScoped<IAvaliacaoClinicaRepositorio, AvaliacaoClinicaRepositorio>();
+
             //Servicos
             servicos.AddScoped<IProfissionalServicoApp, ProfissionalServicoApp>();
 
@@ -132,6 +137,7 @@ namespace MarcaPlantao.Infra.IoC
             servicos.AddScoped<IRequestHandler<AdicionarClinicaComando, bool>, ClinicaCommandHandler>();
             servicos.AddScoped<IRequestHandler<AtualizarClinicaComando, bool>, ClinicaCommandHandler>();
             servicos.AddScoped<IRequestHandler<RemoverClinicaComando, bool>, ClinicaCommandHandler>();
+            servicos.AddScoped<IRequestHandler<AdicionarAvaliacaoClinicaComando, bool>, ClinicaCommandHandler>();
 
             servicos.AddScoped<IRequestHandler<AdicionarOfertaComando, Entidade>, OfertaCommandHandler>();
             servicos.AddScoped<IRequestHandler<AtualizarOfertaComando, bool>, OfertaCommandHandler>();
@@ -142,7 +148,8 @@ namespace MarcaPlantao.Infra.IoC
             servicos.AddScoped<IRequestHandler<AdicionarPlantaoComando, bool>, PlantaoCommandHandler>();
             servicos.AddScoped<IRequestHandler<AtualizarPlantaoComando, bool>, PlantaoCommandHandler>();
             servicos.AddScoped<IRequestHandler<RemoverPlantaoComando, bool>, PlantaoCommandHandler>();
-            servicos.AddScoped<IRequestHandler<AtualizarStatusPlantaoComando, bool>, PlantaoCommandHandler>(); 
+            servicos.AddScoped<IRequestHandler<AtualizarStatusPlantaoComando, bool>, PlantaoCommandHandler>();
+            servicos.AddScoped<IRequestHandler<EncerrarPlantaoComando, bool>, PlantaoCommandHandler>();
         }
     }
 }

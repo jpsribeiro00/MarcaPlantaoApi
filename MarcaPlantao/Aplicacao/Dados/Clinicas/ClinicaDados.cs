@@ -1,4 +1,5 @@
-﻿using MarcaPlantao.Aplicacao.Dados.Endereco;
+﻿using MarcaPlantao.Aplicacao.Dados.Avaliacoes;
+using MarcaPlantao.Aplicacao.Dados.Endereco;
 using MarcaPlantao.Aplicacao.Dados.Ofertas;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace MarcaPlantao.Aplicacao.Dados.Clinicas
 
         public byte[]? Imagem { get; set; }
 
-        public EnderecoDados? Endereco { get; set; }
+        public EnderecoDados? Endereco { get; set; } 
+
+        public List<AvaliacaoClinicaSimplificadoDados>? Avaliacoes { get; set; }
     }
 }

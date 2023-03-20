@@ -43,6 +43,12 @@ namespace MarcaPlantao.Aplicacao.Servicos.Plantoes
             return await mediador.EnviarComando(atualizarComando);
         }
 
+        public async Task<bool> EncerrarPlantaoAsync(EncerrarPlantaoDados plantao)
+        {
+            var atualizarComando = mapper.Map<EncerrarPlantaoComando>(plantao);
+            return await mediador.EnviarComando(atualizarComando);
+        }
+
         public async Task<PlantaoDados> ObterPorId(Guid id)
         {
             return await plantaoConsultaApp.ObterPorId(id);

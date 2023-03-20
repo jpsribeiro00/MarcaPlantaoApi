@@ -1,4 +1,5 @@
-﻿using MarcaPlantao.Dominio.Clinicas;
+﻿using MarcaPlantao.Dominio.Avaliacao;
+using MarcaPlantao.Dominio.Clinicas;
 using MarcaPlantao.Dominio.Consultas;
 using MarcaPlantao.Dominio.Enderecos;
 using MarcaPlantao.Dominio.Especializacoes;
@@ -27,6 +28,8 @@ namespace MarcaPlantao.Infra.Contexto
         public DbSet<Oferta> Ofertas { get; set; }
         public DbSet<Especializacao> Especializacoes { get; set; }
         public DbSet<Plantao> Plantoes { get; set; }
+        public DbSet<AvaliacaoProfissional> AvaliacaoProfissionais { get; set; }
+        public DbSet<AvaliacaoClinica> AvaliacaoClinicas { get; set; }
         public DbSet<EventoClinica> EventosClinicas { get; set; }
         public DbSet<EventoProfissional> EventosProfissionais { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using MarcaPlantao.Aplicacao.Dados.Especializacoes;
+﻿using MarcaPlantao.Aplicacao.Dados.Avaliacoes;
+using MarcaPlantao.Aplicacao.Dados.Especializacoes;
 using MarcaPlantao.Aplicacao.Dados.Ofertas;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,6 @@ namespace MarcaPlantao.Aplicacao.Dados.Profissionais
         public string CRM { get; set; }
         public string CPF { get; set; }
         public List<EspecializacaoSimplificadoDados>? Especializacoes { get; set; }
+        public List<AvaliacaoProfissionalSimplificadoDados>? Avaliacoes { get; set; }
     }
 }

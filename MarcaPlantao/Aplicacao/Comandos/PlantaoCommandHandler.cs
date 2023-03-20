@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using MarcaPlantao.Aplicacao.Comandos.PlantaoComandos;
+using MarcaPlantao.Dominio.Avaliacao;
 using MarcaPlantao.Dominio.Especializacoes;
 using MarcaPlantao.Dominio.Ofertas;
 using MarcaPlantao.Dominio.Plantoes;
 using MarcaPlantao.Dominio.Profissionais;
+using MarcaPlantao.Infra.Repositorios.Avaliacao;
 using MarcaPlantao.Infra.Repositorios.Clinicas;
 using MarcaPlantao.Infra.Repositorios.Ofertas;
 using MarcaPlantao.Infra.Repositorios.Plantoes;
@@ -25,21 +27,24 @@ namespace MarcaPlantao.Aplicacao.Comandos
         IRequestHandler<AtualizarPlantaoComando, bool>,
         IRequestHandler<RemoverPlantaoComando, bool>,
         IRequestHandler<AdicionarPlantaoComando, bool>, 
-        IRequestHandler<AtualizarStatusPlantaoComando, bool>
+        IRequestHandler<AtualizarStatusPlantaoComando, bool>,
+        IRequestHandler<EncerrarPlantaoComando, bool>
     {
         private readonly IMediatorHandler mediadorHandler;
         private readonly IPlantaoRepositorio plantaoRepositorio;
         private readonly IOfertaRepositorio ofertaRepositorio;
         private readonly IProfissionalRepositorio profissionalRepositorio;
+        private readonly IAvaliacaoProfissionalRepositorio avaliacaoProfissionalRepositorio;
         private readonly IMapper mapper;
 
-        public PlantaoCommandHandler(IMediatorHandler mediadorHandler, IPlantaoRepositorio plantaoRepositorio, IMapper mapper, IOfertaRepositorio ofertaRepositorio, IProfissionalRepositorio profissionalRepositorio)
+        public PlantaoCommandHandler(IMediatorHandler mediadorHandler, IPlantaoRepositorio plantaoRepositorio, IMapper mapper, IOfertaRepositorio ofertaRepositorio, IProfissionalRepositorio profissionalRepositorio, IAvaliacaoProfissionalRepositorio avaliacaoProfissionalRepositorio)
         {
             this.mediadorHandler = mediadorHandler;
             this.plantaoRepositorio = plantaoRepositorio;
             this.mapper = mapper;
             this.ofertaRepositorio = ofertaRepositorio;
             this.profissionalRepositorio = profissionalRepositorio;
+            this.avaliacaoProfissionalRepositorio = avaliacaoProfissionalRepositorio;
         }
 
         public async Task<bool> Handle(AdicionarPlantaoComando request, CancellationToken cancellationToken)
@@ -163,6 +168,49 @@ namespace MarcaPlantao.Aplicacao.Comandos
                     plantao.Status = (StatusPlantao)request.Status;
 
                     await plantaoRepositorio.Atualizar(plantao);
+
+                    return true;
+                }
+
+                await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, "Plantão informado não encontrado"));
+                return false;
+            }
+            catch (DominioException ex)
+            {
+                await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, ex.Message));
+                return false;
+            }
+            catch (Exception ex)
+            {
+                await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, ex.Message));
+                return false;
+            }
+        }
+
+        public async Task<bool> Handle(EncerrarPlantaoComando request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                if (!ValidarComando(request)) return false;
+
+                var plantao = await plantaoRepositorio.ObterPorId(request.Id);
+
+                if (plantao != null)
+                {
+                    plantao.Status = StatusPlantao.Finalizado;
+                    plantao.Comprovante = request.Comprovante;
+
+                    await plantaoRepositorio.Atualizar(plantao);
+
+                    var avaliacaoProfissional = new AvaliacaoProfissional();
+                    avaliacaoProfissional.Nota = request.Nota;
+                    avaliacaoProfissional.Descricao = request.Descricao;
+                    avaliacaoProfissional.DataAvaliacao = request.DataAvaliacao;
+                    avaliacaoProfissional.ClinicaId = request.ClinicaId;
+                    avaliacaoProfissional.ProfissionalId = request.ProfissionalId;
+                    avaliacaoProfissional.PlantaoId = plantao.Id;
+
+                    await avaliacaoProfissionalRepositorio.Adicionar(avaliacaoProfissional);
 
                     return true;
                 }

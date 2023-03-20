@@ -35,7 +35,7 @@ namespace MarcaPlantao_Api.Controllers.Profissionais
         public async Task<IActionResult> ObterPorId(Guid Id)
         {
             var resultado = await profissionalServico.ObterPorId(Id);
-
+             
             return Response(resultado);
         }
 

@@ -1,4 +1,5 @@
-﻿using MarcaPlantao.Dominio.Especializacoes;
+﻿using MarcaPlantao.Dominio.Avaliacao;
+using MarcaPlantao.Dominio.Especializacoes;
 using MarcaPlantao.Dominio.Ofertas;
 using MarcaPlantao.Dominio.Usuarios;
 using MarcaPlantao_Infraestrutura.ObjetoDominio;
@@ -24,5 +25,6 @@ namespace MarcaPlantao.Dominio.Profissionais
         public virtual IdentityDbContext<ApplicationUser> User { get; set; }
         public virtual ICollection<Oferta> Ofertas { get; set; }
         public virtual ICollection<Especializacao> Especializacoes { get; set; }
-}
+        public virtual ICollection<AvaliacaoProfissional> Avaliacoes { get; set; }
+    }
 }

@@ -17,6 +17,7 @@ namespace MarcaPlantao.Infra.Repositorios.Profissionais
         {
             return await Db.Profissionais
                 .Include(x => x.Especializacoes)
+                .Include(x => x.Avaliacoes)
                 .Where(x => x.UserId == UsuarioId)
                 .FirstOrDefaultAsync();
         }
@@ -25,6 +26,7 @@ namespace MarcaPlantao.Infra.Repositorios.Profissionais
         {
             return await Db.Profissionais
                 .Include(x => x.Especializacoes)
+                .Include(x => x.Avaliacoes).ThenInclude(x => x.Clinica)
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
         }
@@ -33,6 +35,7 @@ namespace MarcaPlantao.Infra.Repositorios.Profissionais
         {
             return await Db.Profissionais
                 .Include(x => x.Especializacoes)
+                .Include(x => x.Avaliacoes).ThenInclude(x => x.Clinica)
                 .ToListAsync();
         }
 

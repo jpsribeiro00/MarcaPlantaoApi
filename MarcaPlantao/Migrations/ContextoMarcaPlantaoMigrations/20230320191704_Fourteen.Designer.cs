@@ -4,6 +4,7 @@ using MarcaPlantao.Infra.Contexto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MarcaPlantao.Migrations.ContextoMarcaPlantaoMigrations
 {
     [DbContext(typeof(ContextoMarcaPlantao))]
-    partial class ContextoMarcaPlantaoModelSnapshot : ModelSnapshot
+    [Migration("20230320191704_Fourteen")]
+    partial class Fourteen
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,11 +60,8 @@ namespace MarcaPlantao.Migrations.ContextoMarcaPlantaoMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ClinicaId")
+                    b.Property<Guid?>("ClinicaId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DataAvaliacao")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
@@ -95,9 +94,6 @@ namespace MarcaPlantao.Migrations.ContextoMarcaPlantaoMigrations
                     b.Property<Guid>("ClinicaId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DataAvaliacao")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
@@ -108,7 +104,7 @@ namespace MarcaPlantao.Migrations.ContextoMarcaPlantaoMigrations
                     b.Property<Guid>("PlantaoId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ProfissionalId")
+                    b.Property<Guid?>("ProfissionalId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -422,19 +418,16 @@ namespace MarcaPlantao.Migrations.ContextoMarcaPlantaoMigrations
 
             modelBuilder.Entity("MarcaPlantao.Dominio.Avaliacao.AvaliacaoClinica", b =>
                 {
-                    b.HasOne("MarcaPlantao.Dominio.Clinicas.Clinica", "Clinica")
+                    b.HasOne("MarcaPlantao.Dominio.Clinicas.Clinica", null)
                         .WithMany("Avaliacoes")
                         .HasForeignKey("ClinicaId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.HasOne("MarcaPlantao.Dominio.Profissionais.Profissional", "Profissional")
                         .WithMany()
                         .HasForeignKey("ProfissionalId")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
-
-                    b.Navigation("Clinica");
 
                     b.Navigation("Profissional");
                 });
@@ -447,15 +440,12 @@ namespace MarcaPlantao.Migrations.ContextoMarcaPlantaoMigrations
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("MarcaPlantao.Dominio.Profissionais.Profissional", "Profissional")
+                    b.HasOne("MarcaPlantao.Dominio.Profissionais.Profissional", null)
                         .WithMany("Avaliacoes")
                         .HasForeignKey("ProfissionalId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.ClientCascade);
 
                     b.Navigation("Clinica");
-
-                    b.Navigation("Profissional");
                 });
 
             modelBuilder.Entity("MarcaPlantao.Dominio.Clinicas.Clinica", b =>

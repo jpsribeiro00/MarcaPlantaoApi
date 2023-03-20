@@ -20,6 +20,7 @@ namespace MarcaPlantao.Infra.Repositorios.Clinicas
         {
             return await Db.Clinicas.AsNoTracking()
                 .Include(x => x.Endereco)
+                .Include(x => x.Avaliacoes).ThenInclude(x => x.Profissional)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
@@ -27,6 +28,7 @@ namespace MarcaPlantao.Infra.Repositorios.Clinicas
         {
             return await Db.Clinicas.AsNoTracking()
                 .Include(x => x.Endereco)
+                .Include(x => x.Avaliacoes).ThenInclude(x => x.Profissional)
                 .ToListAsync();
         }
     }

@@ -15,6 +15,8 @@ namespace MarcaPlantao.Aplicacao.Servicos.Plantoes
 
         Task<bool> AtualizarStatusAsync(AtualizarStatusPlantaoDados foto);
 
+        Task<bool> EncerrarPlantaoAsync(EncerrarPlantaoDados foto);
+
         Task<bool> RemoverAsync(Guid id);
 
         Task<PlantaoDados> ObterPorId(Guid idUsuario);

@@ -1,4 +1,5 @@
-﻿using MarcaPlantao.Aplicacao.Dados.Clinicas;
+﻿using MarcaPlantao.Aplicacao.Dados.Avaliacoes;
+using MarcaPlantao.Aplicacao.Dados.Clinicas;
 using MarcaPlantao.Aplicacao.Dados.Profissionais;
 using MarcaPlantao.Aplicacao.Servicos.Clinicas;
 using MarcaPlantao.Aplicacao.Servicos.Profissionais;
@@ -43,6 +44,14 @@ namespace MarcaPlantao_Api.Controllers.Clinicas
         public async Task<IActionResult> Atualizar([FromBody] ClinicaArquivoDados Clinica)
         {
             var resultado = await clinicaServicoApp.AtualizarAsync(Clinica);
+
+            return Response(resultado);
+        }
+
+        [HttpPost("AdicionarAvaliacaoClinica")]
+        public async Task<IActionResult> AdicionarAvaliacaoClinica([FromBody] AdicionarAvaliacaoClinicaDados Clinica)
+        {
+            var resultado = await clinicaServicoApp.AdicionarAvaliacaoAsync(Clinica);
 
             return Response(resultado);
         }

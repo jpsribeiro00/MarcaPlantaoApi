@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MarcaPlantao.Aplicacao.Dados.Acesso;
+using MarcaPlantao.Aplicacao.Dados.Avaliacoes;
 using MarcaPlantao.Aplicacao.Dados.Clinicas;
 using MarcaPlantao.Aplicacao.Dados.Endereco;
 using MarcaPlantao.Aplicacao.Dados.Especializacoes;
@@ -9,6 +10,7 @@ using MarcaPlantao.Aplicacao.Dados.Ofertas;
 using MarcaPlantao.Aplicacao.Dados.Plantoes;
 using MarcaPlantao.Aplicacao.Dados.Profissionais;
 using MarcaPlantao.Aplicacao.Dados.Usuario;
+using MarcaPlantao.Dominio.Avaliacao;
 using MarcaPlantao.Dominio.Clinicas;
 using MarcaPlantao.Dominio.Consultas;
 using MarcaPlantao.Dominio.Enderecos;
@@ -84,6 +86,12 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                 .ForMember(d => d.Master, o => o.MapFrom(sess => sess.Master))
                 .ForMember(d => d.Email, o => o.MapFrom(sess => sess.Email))
                 .ForMember(d => d.ClinicaId, o => o.MapFrom(sess => sess.ClinicaId));
+
+            CreateMap<AvaliacaoProfissional, AvaliacaoProfissionalSimplificadoDados>()
+                .ForMember(d => d.Clinica, o => o.MapFrom(sess => sess.Clinica.RazaoSocial));
+
+            CreateMap<AvaliacaoClinica, AvaliacaoClinicaSimplificadoDados>()
+                .ForMember(d => d.Profissional, o => o.MapFrom(sess => sess.Profissional.Nome));
         }
     }
 }

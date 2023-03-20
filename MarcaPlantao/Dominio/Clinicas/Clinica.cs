@@ -1,4 +1,5 @@
-﻿using MarcaPlantao.Dominio.Enderecos;
+﻿using MarcaPlantao.Dominio.Avaliacao;
+using MarcaPlantao.Dominio.Enderecos;
 using MarcaPlantao.Dominio.Ofertas;
 using MarcaPlantao.Dominio.Plantoes;
 using MarcaPlantao.Dominio.Usuarios;
@@ -28,5 +29,7 @@ namespace MarcaPlantao.Dominio.Clinicas
         public ICollection<Oferta> Ofertas { get; set; }
 
         public virtual ICollection<Plantao> Plantoes { get; set; }
+
+        public virtual ICollection<AvaliacaoClinica> Avaliacoes { get; set; }
     }
 }

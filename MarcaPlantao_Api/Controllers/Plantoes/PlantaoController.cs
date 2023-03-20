@@ -61,6 +61,14 @@ namespace MarcaPlantao_Api.Controllers.Plantoes
             return Response(resultado);
         }
 
+        [HttpPut("EncerrarPlantao")]
+        public async Task<IActionResult> EncerrarPlantao([FromBody] EncerrarPlantaoDados Plantao)
+        {
+            var resultado = await plantaoServicoApp.EncerrarPlantaoAsync(Plantao);
+
+            return Response(resultado);
+        }
+
         [HttpDelete("RemoverPlantao")]
         public async Task<IActionResult> Remover(Guid Id)
         {

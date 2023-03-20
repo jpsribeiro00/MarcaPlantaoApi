@@ -1,4 +1,5 @@
-﻿using MarcaPlantao.Aplicacao.Dados.Clinicas;
+﻿using MarcaPlantao.Aplicacao.Dados.Avaliacoes;
+using MarcaPlantao.Aplicacao.Dados.Clinicas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,7 @@ namespace MarcaPlantao.Aplicacao.Servicos.Clinicas
         Task<ClinicaDados> ObterPorId(Guid id);
 
         Task<List<ClinicaDados>> ObterTodos();
+
+        Task<bool> AdicionarAvaliacaoAsync(AdicionarAvaliacaoClinicaDados clinicaDados);
     }
 }

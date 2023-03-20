@@ -5,6 +5,7 @@ using MarcaPlantao.Aplicacao.Comandos.OfertaComandos;
 using MarcaPlantao.Aplicacao.Comandos.PlantaoComandos;
 using MarcaPlantao.Aplicacao.Comandos.ProfissionalComandos;
 using MarcaPlantao.Aplicacao.Dados.Acesso;
+using MarcaPlantao.Aplicacao.Dados.Avaliacoes;
 using MarcaPlantao.Aplicacao.Dados.Clinicas;
 using MarcaPlantao.Aplicacao.Dados.Endereco;
 using MarcaPlantao.Aplicacao.Dados.Especializacoes;
@@ -183,6 +184,16 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                     x.Id
                 ));
 
+            CreateMap<AdicionarAvaliacaoClinicaDados, AdicionarAvaliacaoClinicaComando>()
+                .ConstructUsing(x => new AdicionarAvaliacaoClinicaComando(
+                    x.ClinicaId,
+                    x.PlantaoId,
+                    x.ProfissionalId,
+                    x.Descricao,
+                    x.Nota,
+                    x.DataAvaliacao
+                ));
+
             CreateMap<ClinicaDados, Clinica>();
 
             CreateMap<EspecializacaoDados, Especializacao>();
@@ -212,6 +223,17 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                     x.DataPagamento,
                     x.Comprovante,
                     x.DataCadastro
+                ));
+
+            CreateMap<EncerrarPlantaoDados, EncerrarPlantaoComando>()
+                .ConstructUsing(x => new EncerrarPlantaoComando(
+                    x.Id,
+                    x.ClinicaId,
+                    x.ProfissionalId,
+                    x.Descricao,
+                    x.Nota,
+                    x.Comprovante,
+                    x.DataAvaliacao
                 ));
 
             CreateMap<PlantaoDados, RemoverPlantaoComando>()
