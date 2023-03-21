@@ -26,7 +26,7 @@ namespace MarcaPlantao.Aplicacao.Comandos
     public class PlantaoCommandHandler :
         IRequestHandler<AtualizarPlantaoComando, bool>,
         IRequestHandler<RemoverPlantaoComando, bool>,
-        IRequestHandler<AdicionarPlantaoComando, bool>, 
+        IRequestHandler<AdicionarPlantaoComando, Entidade>, 
         IRequestHandler<AtualizarStatusPlantaoComando, bool>,
         IRequestHandler<EncerrarPlantaoComando, bool>
     {
@@ -47,46 +47,45 @@ namespace MarcaPlantao.Aplicacao.Comandos
             this.avaliacaoProfissionalRepositorio = avaliacaoProfissionalRepositorio;
         }
 
-        public async Task<bool> Handle(AdicionarPlantaoComando request, CancellationToken cancellationToken)
+        public async Task<Entidade> Handle(AdicionarPlantaoComando request, CancellationToken cancellationToken)
         {
+            Plantao plantaoAdicionado = new Plantao();
+
             try
             {
-                if (!ValidarComando(request)) return false;
+                if (!ValidarComando(request)) return plantaoAdicionado;
 
                 var oferta = await ofertaRepositorio.ObterPorId(request.OfertaId);
                 var profissional = await profissionalRepositorio.ObterPorId(request.ProfissionalId);
 
                 if(oferta != null && profissional != null) 
                 {
-                    var plantao = new Plantao();
-                    plantao.ProfissionalId = profissional.Id;
-                    plantao.OfertaId = oferta.Id;
-                    plantao.Status = StatusPlantao.NaoIniciado;
-                    plantao.DataInicial = oferta.DataInicial;
-                    plantao.DataFinal = oferta.DataFinal;
-                    plantao.ValorTotal = oferta.Valor;
-                    plantao.HoraExtra = oferta.ValorHoraExtra;
-                    plantao.StatusPagamento = StatusPagamento.Pendente;
-                    plantao.ClinicaId = oferta.ClinicaId;
-                    plantao.DataPagamento = null;
+                    plantaoAdicionado.ProfissionalId = profissional.Id;
+                    plantaoAdicionado.OfertaId = oferta.Id;
+                    plantaoAdicionado.Status = StatusPlantao.NaoIniciado;
+                    plantaoAdicionado.DataInicial = oferta.DataInicial;
+                    plantaoAdicionado.DataFinal = oferta.DataFinal;
+                    plantaoAdicionado.ValorTotal = oferta.Valor;
+                    plantaoAdicionado.HoraExtra = oferta.ValorHoraExtra;
+                    plantaoAdicionado.StatusPagamento = StatusPagamento.Pendente;
+                    plantaoAdicionado.ClinicaId = oferta.ClinicaId;
+                    plantaoAdicionado.DataPagamento = null;
 
-                    await plantaoRepositorio.Adicionar(plantao);
-
-                    return true;
+                    return await plantaoRepositorio.AdicionarComRetornoDeObjeto(plantaoAdicionado);
                 }
 
                 await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, "Não existe oferta ou profissional informados!"));
-                return false;
+                return plantaoAdicionado;
             }
             catch (DominioException ex)
             {
                 await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, ex.Message));
-                return false;
+                return plantaoAdicionado;
             }
             catch (Exception ex)
             {
                 await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, ex.Message));
-                return false;
+                return plantaoAdicionado;
             }
         }
 
@@ -228,6 +227,18 @@ namespace MarcaPlantao.Aplicacao.Comandos
                 await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, ex.Message));
                 return false;
             }
+        }
+
+        private bool ValidarComando(ComandoAdicionar mensagem)
+        {
+            if (mensagem.EhValido()) return true;
+
+            foreach (var error in mensagem.ResultadoValidacao.Errors)
+            {
+                mediadorHandler.PublicarNotificacao(new NotificacaoDominio(mensagem.Tipo, error.ErrorMessage));
+            }
+
+            return false;
         }
 
         private bool ValidarComando(Comando mensagem)

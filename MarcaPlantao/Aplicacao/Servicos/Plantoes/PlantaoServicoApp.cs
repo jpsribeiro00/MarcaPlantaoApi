@@ -25,10 +25,10 @@ namespace MarcaPlantao.Aplicacao.Servicos.Plantoes
             this.plantaoConsultaApp = plantaoConsultaApp;
         }
 
-        public async Task<bool> AdicionarAsync(GerarPlantaoDados plantao)
+        public async Task<PlantaoDados> AdicionarAsync(GerarPlantaoDados plantao)
         {
             var adicionarComando = mapper.Map<AdicionarPlantaoComando>(plantao);
-            return await mediador.EnviarComando(adicionarComando);
+            return mapper.Map<PlantaoDados>((Plantao)await mediador.EnviarComandoAdicionar(adicionarComando));
         }
 
         public async Task<bool> AtualizarAsync(AtualizarPlantaoDados plantao)

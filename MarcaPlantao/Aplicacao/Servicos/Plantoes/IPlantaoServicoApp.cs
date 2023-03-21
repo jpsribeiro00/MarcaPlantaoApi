@@ -1,4 +1,5 @@
 ﻿using MarcaPlantao.Aplicacao.Dados.Plantoes;
+using MarcaPlantao.Dominio.Plantoes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace MarcaPlantao.Aplicacao.Servicos.Plantoes
 {
     public interface IPlantaoServicoApp
     {
-        Task<bool> AdicionarAsync(GerarPlantaoDados foto);
+        Task<PlantaoDados> AdicionarAsync(GerarPlantaoDados foto);
 
         Task<bool> AtualizarAsync(AtualizarPlantaoDados foto);
 

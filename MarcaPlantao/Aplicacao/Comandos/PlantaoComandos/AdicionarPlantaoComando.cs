@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MarcaPlantao.Aplicacao.Comandos.PlantaoComandos
 {
-    public class AdicionarPlantaoComando : Comando
+    public class AdicionarPlantaoComando : ComandoAdicionar
     {
         public Guid OfertaId { get; set; }
         public Guid ProfissionalId { get; set; }
