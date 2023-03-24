@@ -12,6 +12,7 @@ namespace MarcaPlantao.Dominio.Consultas
         public Guid Id { get; set; }
         public string Titulo { get; set; }
         public string Tipo { get; set; }
+        public int? Status { get; set; }
         public DateTime DataInicial { get; set; }
         public DateTime? DataFinal { get; set; }
     }
