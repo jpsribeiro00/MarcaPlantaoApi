@@ -75,6 +75,20 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
 
             CreateMap<Oferta, ObterOfertaDados>();
 
+            CreateMap<Oferta, ListaOfertasAbertasProfissional>()
+                .ForMember(d => d.Id, o => o.MapFrom(sess => sess.Id))
+                .ForMember(d => d.ClinicaId, o => o.MapFrom(sess => sess.ClinicaId))
+                .ForMember(d => d.Titulo, o => o.MapFrom(sess => sess.Titulo))
+                .ForMember(d => d.RazaoSocial, o => o.MapFrom(sess => sess.Clinica.RazaoSocial))
+                .ForMember(d => d.ImagemClinica, o => o.MapFrom(sess => sess.Clinica.Imagem))
+                .ForMember(d => d.DataInicial, o => o.MapFrom(sess => sess.DataInicial))
+                .ForMember(d => d.DataFinal, o => o.MapFrom(sess => sess.DataFinal))
+                .ForMember(d => d.Valor, o => o.MapFrom(sess => sess.Valor))
+                .ForMember(d => d.ValorHoraExtra, o => o.MapFrom(sess => sess.ValorHoraExtra))
+                .ForMember(d => d.Pagamento, o => o.MapFrom(sess => sess.Pagamento))
+                .ForMember(d => d.Endereco, o => o.MapFrom(sess => sess.Clinica.Endereco))
+                .ForMember(d => d.Especializacoes, o => o.MapFrom(sess => sess.Especializacoes));
+
             CreateMap<Profissional, ObterUsuarioProfissional>()
                 .ForMember(d => d.Id, o => o.MapFrom(sess => sess.Id))
                 .ForMember(d => d.Nome, o => o.MapFrom(sess => sess.Nome))

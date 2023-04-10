@@ -50,6 +50,11 @@ namespace MarcaPlantao.Aplicacao.Servicos.Ofertas
             return await ofertaConsultaApp.ObterTodos();
         }
 
+        public async Task<List<ListaOfertasAbertasProfissional>> ObterOfertasAbertasParaProfissional(Guid ProfissionalId)
+        {
+            return await ofertaConsultaApp.ObterOfertasAbertasParaProfissional(ProfissionalId);
+        }
+
         public async Task<bool> RemoverAsync(Guid id)
         {
             var oferta = new OfertaDados();

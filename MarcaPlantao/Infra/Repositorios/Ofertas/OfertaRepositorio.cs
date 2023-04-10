@@ -1,4 +1,6 @@
-﻿using MarcaPlantao.Dominio.Ofertas;
+﻿using MarcaPlantao.Aplicacao.Dados.Ofertas;
+using MarcaPlantao.Dominio.Ofertas;
+using MarcaPlantao.Dominio.Plantoes;
 using MarcaPlantao.Dominio.Profissionais;
 using MarcaPlantao.Infra.Contexto;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +37,17 @@ namespace MarcaPlantao.Infra.Repositorios.Ofertas
                 .Include(x => x.Profissionais)
                 .Include(x => x.Especializacoes)
                 .ToListAsync();
+        }
+
+        public async Task<List<Oferta>> ObterOfertasAbertasParaProfissional()
+        {
+            List<Oferta> listaOfertas = await Db.Ofertas.AsNoTracking()
+                .Include(x => x.Profissionais)
+                .Include(x => x.Especializacoes)
+                .Include(x => x.Clinica).ThenInclude(x => x.Endereco)
+                .ToListAsync();
+
+            return listaOfertas.Where(x => Db.Plantoes.AnyAsync(y => y.OfertaId != x.Id).Result).ToList();
         }
     }
 }

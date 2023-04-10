@@ -22,5 +22,7 @@ namespace MarcaPlantao.Aplicacao.Servicos.Ofertas
         Task<ObterOfertaDados> ObterPorId(Guid id);
 
         Task<List<ObterOfertaDados>> ObterTodos();
+
+        Task<List<ListaOfertasAbertasProfissional>> ObterOfertasAbertasParaProfissional(Guid ProfissionalId);
     }
 }

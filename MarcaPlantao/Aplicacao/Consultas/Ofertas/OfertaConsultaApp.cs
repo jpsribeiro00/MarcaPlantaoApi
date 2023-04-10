@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MarcaPlantao.Aplicacao.Dados.Endereco;
 using MarcaPlantao.Aplicacao.Dados.Ofertas;
+using MarcaPlantao.Dominio.Ofertas;
 using MarcaPlantao.Infra.Repositorios.Enderecos;
 using MarcaPlantao.Infra.Repositorios.Ofertas;
 using System;
@@ -30,6 +31,22 @@ namespace MarcaPlantao.Aplicacao.Consultas.Ofertas
         public async Task<List<ObterOfertaDados>> ObterTodos()
         {
             return mapper.Map<List<ObterOfertaDados>>(await ofertaRepositorio.ObterTodasOfertaProfissionalEspecializacao());
+        }
+
+        public async Task<List<ListaOfertasAbertasProfissional>> ObterOfertasAbertasParaProfissional(Guid ProfissionalId)
+        {
+            List<ListaOfertasAbertasProfissional> listaOfertasParaCandidato = new List<ListaOfertasAbertasProfissional>();
+
+            List<Oferta> listaOfertas = await ofertaRepositorio.ObterOfertasAbertasParaProfissional();
+
+            foreach (Oferta item in listaOfertas)
+            {
+                ListaOfertasAbertasProfissional ofertaParaCandidato = mapper.Map<ListaOfertasAbertasProfissional>(item);
+                ofertaParaCandidato.Candidatado = item.Profissionais.Where(x => x.Id == ProfissionalId).Count() == 1;
+                listaOfertasParaCandidato.Add(ofertaParaCandidato);
+            }
+
+            return listaOfertasParaCandidato;
         }
     }
 }

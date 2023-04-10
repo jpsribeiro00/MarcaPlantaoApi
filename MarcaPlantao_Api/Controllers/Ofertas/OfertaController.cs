@@ -77,5 +77,13 @@ namespace MarcaPlantao_Api.Controllers.Ofertas
 
             return Response(resultado);
         }
+
+        [HttpGet("ObterOfertasParaProfissional")]
+        public async Task<IActionResult> RemoverProfissionalOferta(Guid ProfissionalId)
+        {
+            var resultado = await ofertaServicoApp.ObterOfertasAbertasParaProfissional(ProfissionalId);
+
+            return Response(resultado);
+        }
     }
 }

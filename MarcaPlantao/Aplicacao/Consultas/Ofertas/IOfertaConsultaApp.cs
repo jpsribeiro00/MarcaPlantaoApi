@@ -1,5 +1,6 @@
 ﻿using MarcaPlantao.Aplicacao.Dados.Endereco;
 using MarcaPlantao.Aplicacao.Dados.Ofertas;
+using MarcaPlantao.Dominio.Ofertas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,7 @@ namespace MarcaPlantao.Aplicacao.Consultas.Ofertas
         Task<ObterOfertaDados> ObterPorId(Guid id);
 
         Task<List<ObterOfertaDados>> ObterTodos();
+
+        Task<List<ListaOfertasAbertasProfissional>> ObterOfertasAbertasParaProfissional(Guid ProfissionalId);
     }
 }
