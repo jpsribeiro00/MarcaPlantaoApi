@@ -17,6 +17,7 @@ namespace MarcaPlantao.Aplicacao.Dados.Ofertas
         public byte[]? ImagemClinica { get; set; }
         public DateTime DataInicial { get; set; }
         public DateTime DataFinal { get; set; }
+        public DateTime DataCadastro { get; set; }
         public double Valor { get; set; }
         public double ValorHoraExtra { get; set; }
         public int Pagamento { get; set; }

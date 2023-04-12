@@ -83,6 +83,7 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                 .ForMember(d => d.ImagemClinica, o => o.MapFrom(sess => sess.Clinica.Imagem))
                 .ForMember(d => d.DataInicial, o => o.MapFrom(sess => sess.DataInicial))
                 .ForMember(d => d.DataFinal, o => o.MapFrom(sess => sess.DataFinal))
+                .ForMember(d => d.DataCadastro, o => o.MapFrom(sess => sess.DataCadastro))
                 .ForMember(d => d.Valor, o => o.MapFrom(sess => sess.Valor))
                 .ForMember(d => d.ValorHoraExtra, o => o.MapFrom(sess => sess.ValorHoraExtra))
                 .ForMember(d => d.Pagamento, o => o.MapFrom(sess => sess.Pagamento))
