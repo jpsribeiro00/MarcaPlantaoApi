@@ -88,7 +88,8 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                 .ForMember(d => d.ValorHoraExtra, o => o.MapFrom(sess => sess.ValorHoraExtra))
                 .ForMember(d => d.Pagamento, o => o.MapFrom(sess => sess.Pagamento))
                 .ForMember(d => d.Endereco, o => o.MapFrom(sess => sess.Clinica.Endereco))
-                .ForMember(d => d.Especializacoes, o => o.MapFrom(sess => sess.Especializacoes));
+                .ForMember(d => d.Especializacoes, o => o.MapFrom(sess => sess.Especializacoes))
+                .ForMember(d => d.Turno, o => o.MapFrom(sess => sess.Turno));
 
             CreateMap<Profissional, ObterUsuarioProfissional>()
                 .ForMember(d => d.Id, o => o.MapFrom(sess => sess.Id))

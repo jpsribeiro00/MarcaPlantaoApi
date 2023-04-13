@@ -21,6 +21,7 @@ namespace MarcaPlantao.Aplicacao.Dados.Ofertas
         public double Valor { get; set; }
         public double ValorHoraExtra { get; set; }
         public int Pagamento { get; set; }
+        public string Turno { get; set; }
         public List<EspecializacaoSimplificadoDados>? Especializacoes { get; set; }
         public EnderecoDados Endereco { get; set; }
         public bool Candidatado { get; set; }
