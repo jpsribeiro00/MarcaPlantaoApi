@@ -79,9 +79,9 @@ namespace MarcaPlantao_Api.Controllers.Ofertas
         }
 
         [HttpGet("ObterOfertasParaProfissional")]
-        public async Task<IActionResult> RemoverProfissionalOferta(Guid ProfissionalId)
+        public async Task<IActionResult> RemoverProfissionalOferta(Guid ProfissionalId, DateTime? dataInicio, DateTime? dataFinal, double? valorInicial, double? valorFinal, string? turno)
         {
-            var resultado = await ofertaServicoApp.ObterOfertasAbertasParaProfissional(ProfissionalId);
+            var resultado = await ofertaServicoApp.ObterOfertasAbertasParaProfissional(ProfissionalId, dataInicio, dataFinal, valorInicial, valorFinal, turno);
 
             return Response(resultado);
         }

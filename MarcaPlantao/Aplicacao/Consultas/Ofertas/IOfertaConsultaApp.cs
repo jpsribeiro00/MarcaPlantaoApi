@@ -15,6 +15,6 @@ namespace MarcaPlantao.Aplicacao.Consultas.Ofertas
 
         Task<List<ObterOfertaDados>> ObterTodos();
 
-        Task<List<ListaOfertasAbertasProfissional>> ObterOfertasAbertasParaProfissional(Guid ProfissionalId);
+        Task<List<ListaOfertasAbertasProfissional>> ObterOfertasAbertasParaProfissional(Guid ProfissionalId, DateTime? dataInicio, DateTime? dataFinal, double? valorInicial, double? valorFinal, string? turno);
     }
 }

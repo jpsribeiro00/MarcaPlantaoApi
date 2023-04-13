@@ -50,9 +50,9 @@ namespace MarcaPlantao.Aplicacao.Servicos.Ofertas
             return await ofertaConsultaApp.ObterTodos();
         }
 
-        public async Task<List<ListaOfertasAbertasProfissional>> ObterOfertasAbertasParaProfissional(Guid ProfissionalId)
+        public async Task<List<ListaOfertasAbertasProfissional>> ObterOfertasAbertasParaProfissional(Guid ProfissionalId, DateTime? dataInicio, DateTime? dataFinal, double? valorInicial, double? valorFinal, string? turno)
         {
-            return await ofertaConsultaApp.ObterOfertasAbertasParaProfissional(ProfissionalId);
+            return await ofertaConsultaApp.ObterOfertasAbertasParaProfissional(ProfissionalId, dataInicio, dataFinal, valorInicial, valorFinal, turno);
         }
 
         public async Task<bool> RemoverAsync(Guid id)
