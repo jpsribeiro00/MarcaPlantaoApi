@@ -16,7 +16,7 @@ namespace MarcaPlantao.Aplicacao.Dados.Plantoes
         public double HoraExtra { get; set; }
         public string Desconto { get; set; }
         public int StatusPagamento { get; set; }
-        public DateTime DataPagamento { get; set; }
+        public DateTime? DataPagamento { get; set; }
         public string Comprovante { get; set; }
         public DateTime DataCadastro { get; set; }
     }
