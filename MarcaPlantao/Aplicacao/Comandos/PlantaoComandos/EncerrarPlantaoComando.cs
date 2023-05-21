@@ -63,10 +63,6 @@ namespace MarcaPlantao.Aplicacao.Comandos.PlantaoComandos
             RuleFor(c => c.Nota)
                 .NotNull()
                 .WithMessage("Nota não foi informado.");
-
-            RuleFor(c => c.Comprovante)
-                .NotEmpty()
-                .WithMessage("Comprovante não foi informado.");
         }
     }
 }
