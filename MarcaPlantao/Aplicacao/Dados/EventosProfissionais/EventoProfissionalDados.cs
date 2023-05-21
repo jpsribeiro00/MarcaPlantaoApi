@@ -13,5 +13,7 @@ namespace MarcaPlantao.Aplicacao.Dados.EventosProfissionais
         public string Tipo { get; set; }
         public DateTime DataInicial { get; set; }
         public DateTime? DataFinal { get; set; }
+        public int Status { get; set; }
+        public string RazaoSocial { get; set; }
     }
 }
