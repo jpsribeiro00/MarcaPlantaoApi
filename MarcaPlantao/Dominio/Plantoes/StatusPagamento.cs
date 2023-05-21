@@ -8,6 +8,7 @@ namespace MarcaPlantao.Dominio.Plantoes
 {
     public enum StatusPagamento
     {
-        Pendente
+        Pendente,
+        Efetuado
     }
 }

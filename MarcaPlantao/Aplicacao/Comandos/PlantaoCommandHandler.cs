@@ -192,9 +192,11 @@ namespace MarcaPlantao.Aplicacao.Comandos
                     plantao.Status = StatusPlantao.Finalizado;
                     plantao.Comprovante = request.Comprovante;
                     plantao.DataFinal = request.DataFinal;
+                    plantao.DataPagamento = request.DataFinal;
                     plantao.ValorTotal = request.ValorTotal;
                     plantao.HoraExtra = request.HoraExtra;
                     plantao.Desconto = request.Desconto;
+                    plantao.StatusPagamento = StatusPagamento.Efetuado;
 
                     await plantaoRepositorio.Atualizar(plantao);
 
