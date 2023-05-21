@@ -27,7 +27,6 @@ namespace MarcaPlantao.Infra.Mapeamentos.Plantoes
                 .HasColumnType("datetime");
 
             builder.Property(c => c.DataFinal)
-                .IsRequired()
                 .HasColumnType("datetime");
 
             builder.Property(c => c.Desconto)

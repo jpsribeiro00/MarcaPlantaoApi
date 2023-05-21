@@ -11,10 +11,6 @@ namespace MarcaPlantao.Aplicacao.Dados.Plantoes
         public Guid Id { get; set; }
         public int Status { get; set; }
         public DateTime DataInicial { get; set; }
-        public DateTime DataFinal { get; set; }
-        public double ValorTotal { get; set; }
-        public double HoraExtra { get; set; }
-        public string Desconto { get; set; }
         public int StatusPagamento { get; set; }
         public DateTime? DataPagamento { get; set; }
         public string Comprovante { get; set; }

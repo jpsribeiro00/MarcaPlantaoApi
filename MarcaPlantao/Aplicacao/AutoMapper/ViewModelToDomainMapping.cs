@@ -215,10 +215,6 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                     x.Id,
                     x.Status,
                     x.DataInicial,
-                    x.DataFinal,
-                    x.ValorTotal,
-                    x.HoraExtra,
-                    x.Desconto,
                     x.StatusPagamento,
                     x.DataPagamento,
                     x.Comprovante,
@@ -233,6 +229,10 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                     x.Descricao,
                     x.Nota,
                     x.Comprovante,
+                    x.DataFinal,
+                    x.ValorTotal,
+                    x.HoraExtra,
+                    x.Desconto,
                     x.DataAvaliacao
                 ));
 

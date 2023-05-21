@@ -64,9 +64,6 @@ namespace MarcaPlantao.Aplicacao.Comandos
                     plantaoAdicionado.OfertaId = oferta.Id;
                     plantaoAdicionado.Status = StatusPlantao.NaoIniciado;
                     plantaoAdicionado.DataInicial = oferta.DataInicial;
-                    plantaoAdicionado.DataFinal = oferta.DataFinal;
-                    plantaoAdicionado.ValorTotal = oferta.Valor;
-                    plantaoAdicionado.HoraExtra = oferta.ValorHoraExtra;
                     plantaoAdicionado.StatusPagamento = StatusPagamento.Pendente;
                     plantaoAdicionado.ClinicaId = oferta.ClinicaId;
                     plantaoAdicionado.DataPagamento = null;
@@ -105,10 +102,6 @@ namespace MarcaPlantao.Aplicacao.Comandos
 
                 plantaoExiste.Status = (StatusPlantao)request.Status;
                 plantaoExiste.DataInicial = request.DataInicial;
-                plantaoExiste.DataFinal = request.DataFinal;
-                plantaoExiste.ValorTotal = request.ValorTotal;
-                plantaoExiste.HoraExtra = request.HoraExtra;
-                plantaoExiste.Desconto = request.Desconto;
                 plantaoExiste.StatusPagamento = (StatusPagamento)request.StatusPagamento;
                 plantaoExiste.DataPagamento = request.DataPagamento;
                 plantaoExiste.Comprovante = request.Comprovante;
@@ -198,6 +191,10 @@ namespace MarcaPlantao.Aplicacao.Comandos
                 {
                     plantao.Status = StatusPlantao.Finalizado;
                     plantao.Comprovante = request.Comprovante;
+                    plantao.DataFinal = request.DataFinal;
+                    plantao.ValorTotal = request.ValorTotal;
+                    plantao.HoraExtra = request.HoraExtra;
+                    plantao.Desconto = request.Desconto;
 
                     await plantaoRepositorio.Atualizar(plantao);
 
