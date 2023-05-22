@@ -47,7 +47,7 @@ namespace MarcaPlantao.Aplicacao.Servicos.Ofertas
 
         public async Task<List<ObterOfertaDados>> ObterTodos()
         {
-            return await ofertaConsultaApp.ObterTodos();
+            return (await ofertaConsultaApp.ObterTodos()).Where(x => x.DataInicial > DateTime.Now).ToList();
         }
 
         public async Task<List<ListaOfertasAbertasProfissional>> ObterOfertasAbertasParaProfissional(Guid ProfissionalId, DateTime? dataInicio, DateTime? dataFinal, double? valorInicial, double? valorFinal, string? turno)
