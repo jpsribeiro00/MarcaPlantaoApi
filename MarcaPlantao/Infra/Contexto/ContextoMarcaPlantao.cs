@@ -1,4 +1,5 @@
-﻿using MarcaPlantao.Dominio.Avaliacao;
+﻿using MarcaPlantao.Dominio.Alertas;
+using MarcaPlantao.Dominio.Avaliacao;
 using MarcaPlantao.Dominio.Clinicas;
 using MarcaPlantao.Dominio.Consultas;
 using MarcaPlantao.Dominio.Enderecos;
@@ -32,6 +33,7 @@ namespace MarcaPlantao.Infra.Contexto
         public DbSet<AvaliacaoClinica> AvaliacaoClinicas { get; set; }
         public DbSet<EventoClinica> EventosClinicas { get; set; }
         public DbSet<EventoProfissional> EventosProfissionais { get; set; }
+        public DbSet<Alerta> Alertas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

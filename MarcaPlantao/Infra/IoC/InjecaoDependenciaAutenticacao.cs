@@ -1,9 +1,11 @@
 ﻿using MarcaPlantao.Aplicacao.Comandos;
+using MarcaPlantao.Aplicacao.Comandos.AlertaComandos;
 using MarcaPlantao.Aplicacao.Comandos.ClinicaComandos;
 using MarcaPlantao.Aplicacao.Comandos.EnderecoComandos;
 using MarcaPlantao.Aplicacao.Comandos.OfertaComandos;
 using MarcaPlantao.Aplicacao.Comandos.PlantaoComandos;
 using MarcaPlantao.Aplicacao.Comandos.ProfissionalComandos;
+using MarcaPlantao.Aplicacao.Consultas.Alertas;
 using MarcaPlantao.Aplicacao.Consultas.Clinicas;
 using MarcaPlantao.Aplicacao.Consultas.Enderecos;
 using MarcaPlantao.Aplicacao.Consultas.Especializacoes;
@@ -13,6 +15,7 @@ using MarcaPlantao.Aplicacao.Consultas.Ofertas;
 using MarcaPlantao.Aplicacao.Consultas.Plantoes;
 using MarcaPlantao.Aplicacao.Consultas.Profissionais;
 using MarcaPlantao.Aplicacao.Servicos.Acesso;
+using MarcaPlantao.Aplicacao.Servicos.Alertas;
 using MarcaPlantao.Aplicacao.Servicos.Clinicas;
 using MarcaPlantao.Aplicacao.Servicos.Enderecos;
 using MarcaPlantao.Aplicacao.Servicos.Ofertas;
@@ -22,6 +25,7 @@ using MarcaPlantao.Dominio.Autorizacao;
 using MarcaPlantao.Dominio.Ofertas;
 using MarcaPlantao.Dominio.Usuarios;
 using MarcaPlantao.Infra.Contexto;
+using MarcaPlantao.Infra.Repositorios.Alertas;
 using MarcaPlantao.Infra.Repositorios.Avaliacao;
 using MarcaPlantao.Infra.Repositorios.Clinicas;
 using MarcaPlantao.Infra.Repositorios.Consultas.EventosClinica;
@@ -97,6 +101,8 @@ namespace MarcaPlantao.Infra.IoC
 
             servicos.AddScoped<IAvaliacaoClinicaRepositorio, AvaliacaoClinicaRepositorio>();
 
+            servicos.AddScoped<IAlertaRepositorio, AlertaRepositorio>();
+
             //Servicos
             servicos.AddScoped<IProfissionalServicoApp, ProfissionalServicoApp>();
 
@@ -107,6 +113,8 @@ namespace MarcaPlantao.Infra.IoC
             servicos.AddScoped<IOfertaServicoApp, OfertaServicoApp>();
 
             servicos.AddScoped<IPlantaoServicoApp, PlantaoServicoApp>();
+
+            servicos.AddScoped<IAlertaServicoApp, AlertaServicoApp>();
 
             //Consultas
             servicos.AddScoped<IProfissionalConsultaApp, ProfissionalConsultaApp>();
@@ -124,6 +132,8 @@ namespace MarcaPlantao.Infra.IoC
             servicos.AddScoped<IEventoClinicaConsultaApp, EventoClinicaConsultaApp>();
 
             servicos.AddScoped<IEventoProfissionalConsultaApp, EventoProfissionalConsultaApp>();
+
+            servicos.AddScoped<IAlertaConsultaApp, AlertaConsultaApp>();
 
             //Comandos
             servicos.AddScoped<IRequestHandler<AdicionarProfissionalComando, bool>, ProfissionalCommandHandler>();
@@ -150,6 +160,8 @@ namespace MarcaPlantao.Infra.IoC
             servicos.AddScoped<IRequestHandler<RemoverPlantaoComando, bool>, PlantaoCommandHandler>();
             servicos.AddScoped<IRequestHandler<AtualizarStatusPlantaoComando, bool>, PlantaoCommandHandler>();
             servicos.AddScoped<IRequestHandler<EncerrarPlantaoComando, bool>, PlantaoCommandHandler>();
+
+            servicos.AddScoped<IRequestHandler<RemoverAlertaComando, bool>, AlertaCommandHandler>();
         }
     }
 }
