@@ -11,5 +11,6 @@ namespace MarcaPlantao.Infra.Repositorios.Avaliacao
 {
     public interface IAvaliacaoProfissionalRepositorio : IRepositorio<AvaliacaoProfissional>
     {
+        Task<List<AvaliacaoProfissional>> ObterPorPlantaoId(Guid plantaoId);
     }
 }

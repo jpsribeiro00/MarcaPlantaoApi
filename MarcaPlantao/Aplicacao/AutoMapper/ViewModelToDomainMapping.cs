@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MarcaPlantao.Aplicacao.Comandos.AvaliacaoComandos;
 using MarcaPlantao.Aplicacao.Comandos.ClinicaComandos;
 using MarcaPlantao.Aplicacao.Comandos.EnderecoComandos;
 using MarcaPlantao.Aplicacao.Comandos.OfertaComandos;
@@ -242,6 +243,9 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                 ));
 
             CreateMap<PlantaoDados, Plantao>();
+
+            CreateMap<AdicionarAvaliacaoProfissionalPlantaoDados, AdicionarAvaliacaoProfissionalClinicaComando>()
+                .ConstructUsing(x => new AdicionarAvaliacaoProfissionalClinicaComando(x.PlantaoId, x.ProfissionalId, x.ClinicaId, x.Nota, x.Descricao));
         }
 
         public byte[] FormatarImagemArquivoByte(IFormFile arquivo) 

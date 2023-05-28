@@ -1,5 +1,6 @@
 ﻿using MarcaPlantao.Dominio.Avaliacao;
 using MarcaPlantao.Infra.Contexto;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,11 @@ namespace MarcaPlantao.Infra.Repositorios.Avaliacao
     {
         public AvaliacaoProfissionalRepositorio(ContextoMarcaPlantao db) : base(db)
         {
+        }
+
+        public async Task<List<AvaliacaoProfissional>> ObterPorPlantaoId(Guid plantaoId) 
+        {
+            return await Db.AvaliacaoProfissionais.AsNoTracking().Where(x => x.PlantaoId == plantaoId).ToListAsync();
         }
     }
 }
