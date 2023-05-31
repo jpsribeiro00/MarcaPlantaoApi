@@ -34,17 +34,17 @@ namespace MarcaPlantao.Aplicacao.Comandos
         private readonly IPlantaoRepositorio plantaoRepositorio;
         private readonly IOfertaRepositorio ofertaRepositorio;
         private readonly IProfissionalRepositorio profissionalRepositorio;
-        private readonly IAvaliacaoProfissionalRepositorio avaliacaoProfissionalRepositorio;
+        private readonly IAvaliacaoClinicaRepositorio avaliacaoClinicaRepositorio;
         private readonly IMapper mapper;
 
-        public PlantaoCommandHandler(IMediatorHandler mediadorHandler, IPlantaoRepositorio plantaoRepositorio, IMapper mapper, IOfertaRepositorio ofertaRepositorio, IProfissionalRepositorio profissionalRepositorio, IAvaliacaoProfissionalRepositorio avaliacaoProfissionalRepositorio)
+        public PlantaoCommandHandler(IMediatorHandler mediadorHandler, IPlantaoRepositorio plantaoRepositorio, IMapper mapper, IOfertaRepositorio ofertaRepositorio, IProfissionalRepositorio profissionalRepositorio, IAvaliacaoClinicaRepositorio avaliacaoClinicaRepositorio)
         {
             this.mediadorHandler = mediadorHandler;
             this.plantaoRepositorio = plantaoRepositorio;
             this.mapper = mapper;
             this.ofertaRepositorio = ofertaRepositorio;
             this.profissionalRepositorio = profissionalRepositorio;
-            this.avaliacaoProfissionalRepositorio = avaliacaoProfissionalRepositorio;
+            this.avaliacaoClinicaRepositorio = avaliacaoClinicaRepositorio;
         }
 
         public async Task<Entidade> Handle(AdicionarPlantaoComando request, CancellationToken cancellationToken)
@@ -200,15 +200,15 @@ namespace MarcaPlantao.Aplicacao.Comandos
 
                     await plantaoRepositorio.Atualizar(plantao);
 
-                    var avaliacaoProfissional = new AvaliacaoProfissional();
-                    avaliacaoProfissional.Nota = request.Nota;
-                    avaliacaoProfissional.Descricao = request.Descricao;
-                    avaliacaoProfissional.DataAvaliacao = request.DataAvaliacao;
-                    avaliacaoProfissional.ClinicaId = request.ClinicaId;
-                    avaliacaoProfissional.ProfissionalId = request.ProfissionalId;
-                    avaliacaoProfissional.PlantaoId = plantao.Id;
+                    var avaliacaoClinica = new AvaliacaoClinica();
+                    avaliacaoClinica.Nota = request.Nota;
+                    avaliacaoClinica.Descricao = request.Descricao;
+                    avaliacaoClinica.DataAvaliacao = request.DataAvaliacao;
+                    avaliacaoClinica.ClinicaId = request.ClinicaId;
+                    avaliacaoClinica.ProfissionalId = request.ProfissionalId;
+                    avaliacaoClinica.PlantaoId = plantao.Id;
 
-                    await avaliacaoProfissionalRepositorio.Adicionar(avaliacaoProfissional);
+                    await avaliacaoClinicaRepositorio.Adicionar(avaliacaoClinica);
 
                     return true;
                 }
