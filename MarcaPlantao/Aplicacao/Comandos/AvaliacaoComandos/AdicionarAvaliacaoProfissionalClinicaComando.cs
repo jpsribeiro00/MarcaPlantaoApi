@@ -28,7 +28,7 @@ namespace MarcaPlantao.Aplicacao.Comandos.AvaliacaoComandos
 
         public override bool EhValido()
         {
-            ResultadoValidacao = new AdicionarAvaliacaoClinicaComandoValidacao().Validate(this);
+            ResultadoValidacao = new AdicionarAvaliacaoProfissionalClinicaComandoValidacao().Validate(this);
             return ResultadoValidacao.IsValid;
         }
     }
