@@ -49,6 +49,10 @@ namespace MarcaPlantao.Aplicacao.Comandos
                     avaliacaoProfissional.DataAvaliacao = new DateTime();
                     avaliacaoProfissional.Nota = request.Nota;
                     avaliacaoProfissional.Descricao = request.Descricao;
+
+                    await avaliacaoProfissionalRepositorio.Adicionar(avaliacaoProfissional);
+
+                    return true;
                 }
 
                 await mediadorHandler.PublicarNotificacao(new NotificacaoDominio(request.Tipo, "Já existe avaliação para esse Plantão!"));
