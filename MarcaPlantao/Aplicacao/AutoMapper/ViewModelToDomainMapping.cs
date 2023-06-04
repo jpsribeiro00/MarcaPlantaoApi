@@ -84,7 +84,8 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                     x.Telefone,
                     FormatarImagemArquivoByte(x.Imagem),
                     x.CRM,
-                    x.CPF
+                    x.CPF,
+                    x.Sobre
                 ));
 
             CreateMap<ProfissionalDados, RemoverProfissionalComando>()
@@ -177,7 +178,8 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                     x.Id,
                     x.RazaoSocial,
                     x.Endereco,
-                    x.Imagem
+                    x.Imagem,
+                    x.Sobre
                 ));
 
             CreateMap<ClinicaDados, RemoverClinicaComando>()

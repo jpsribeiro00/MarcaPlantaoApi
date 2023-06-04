@@ -17,6 +17,8 @@ namespace MarcaPlantao.Aplicacao.Dados.Clinicas
 
         public byte[]? Imagem { get; set; }
 
+        public string Sobre { get; set; }
+
         public EnderecoDados? Endereco { get; set; } 
 
         public List<AvaliacaoClinicaSimplificadoDados>? Avaliacoes { get; set; }

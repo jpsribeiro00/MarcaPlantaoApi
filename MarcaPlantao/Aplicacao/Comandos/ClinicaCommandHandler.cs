@@ -87,6 +87,7 @@ namespace MarcaPlantao.Aplicacao.Comandos
                 clinicaExiste.RazaoSocial = request.RazaoSocial;
                 clinicaExiste.Endereco = mapper.Map<Endereco>(request.Endereco);
                 clinicaExiste.Imagem = request.Imagem;
+                clinicaExiste.Sobre = request.Sobre;
 
                 await clinicaRepositorio.Atualizar(clinicaExiste);
 

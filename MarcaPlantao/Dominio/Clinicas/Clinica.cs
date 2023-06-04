@@ -20,6 +20,8 @@ namespace MarcaPlantao.Dominio.Clinicas
 
         public byte[]? Imagem { get; set; }
 
+        public string Sobre { get; set; }
+
         //Ef Relations
         public Guid EnderecoId { get; set; }
 

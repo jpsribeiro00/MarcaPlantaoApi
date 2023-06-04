@@ -23,6 +23,10 @@ namespace MarcaPlantao.Infra.Mapeamentos.Clinicas
 
             builder.Property(c => c.Imagem)
                 .HasColumnType("varbinary");
+
+            builder.Property(c => c.Sobre)
+                .IsRequired()
+                .HasColumnType("varchar(500)");
         }
     }
 }

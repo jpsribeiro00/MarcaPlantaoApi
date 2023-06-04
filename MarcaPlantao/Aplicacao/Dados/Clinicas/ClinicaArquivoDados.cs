@@ -14,6 +14,8 @@ namespace MarcaPlantao.Aplicacao.Dados.Clinicas
 
         public string RazaoSocial { get; set; }
 
+        public string Sobre { get; set; }
+
         public IFormFile Imagem { get; set; }
 
         public EnderecoDados? Endereco { get; set; }

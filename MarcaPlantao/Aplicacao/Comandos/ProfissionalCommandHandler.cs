@@ -100,6 +100,7 @@ namespace MarcaPlantao.Aplicacao.Comandos
                 profissionalExiste.Imagem = request.Imagem;
                 profissionalExiste.CRM = request.CRM;
                 profissionalExiste.CPF = request.CPF;
+                profissionalExiste.Sobre = request.Sobre;
 
                 await profissionalRepositorio.Atualizar(profissionalExiste);
 

@@ -17,6 +17,7 @@ namespace MarcaPlantao.Dominio.Profissionais
         public byte[]? Imagem { get; set; }
         public string CRM { get; set; }
         public string CPF { get; set; }
+        public string Sobre { get; set; }
 
         //Ef Relations
         public string UserId { get; set; }

@@ -17,5 +17,6 @@ namespace MarcaPlantao.Aplicacao.Dados.Profissionais
         public IFormFile? Imagem { get; set; }
         public string CRM { get; set; }
         public string CPF { get; set; }
+        public string Sobre { get; set; }
     }
 }

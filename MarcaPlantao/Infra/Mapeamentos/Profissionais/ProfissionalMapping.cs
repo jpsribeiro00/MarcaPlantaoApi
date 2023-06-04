@@ -40,6 +40,10 @@ namespace MarcaPlantao.Infra.Mapeamentos.Profissionais
             builder.Property(c => c.CPF)
                 .IsRequired()
                 .HasColumnType("varchar(14)");
+
+            builder.Property(c => c.Sobre)
+                .IsRequired()
+                .HasColumnType("varchar(500)");
         }
     }
 }

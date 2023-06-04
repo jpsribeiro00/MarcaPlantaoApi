@@ -17,13 +17,15 @@ namespace MarcaPlantao.Aplicacao.Comandos.ClinicaComandos
         public string RazaoSocial { get; set; }
         public EnderecoDados Endereco { get; set; }
         public byte[]? Imagem { get; set; }
+        public string Sobre { get; set; }
 
-        public AtualizarClinicaComando(Guid id, string razaoSocial, EnderecoDados endereco, byte[]? imagem)
+        public AtualizarClinicaComando(Guid id, string razaoSocial, EnderecoDados endereco, byte[]? imagem, string sobre)
         {
             Id = id;
             RazaoSocial = razaoSocial;
             Endereco = endereco;
             Imagem = imagem;
+            Sobre = sobre;
         }
 
         public override bool EhValido()

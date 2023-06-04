@@ -22,8 +22,9 @@ namespace MarcaPlantao.Aplicacao.Comandos.ProfissionalComandos
         public byte[]? Imagem { get; set; }
         public string CRM { get; set; }
         public string CPF { get; set; }
+        public string Sobre { get; set; }
 
-        public AtualizarProfissionalComando(Guid id, string nome, DateTime dataNascimento, string genero, string telefone, byte[]? imagem, string cRM, string cPF)
+        public AtualizarProfissionalComando(Guid id, string nome, DateTime dataNascimento, string genero, string telefone, byte[]? imagem, string cRM, string cPF, string sobre)
         {
             Id = id;
             Nome = nome;
@@ -33,6 +34,7 @@ namespace MarcaPlantao.Aplicacao.Comandos.ProfissionalComandos
             Imagem = imagem;
             CRM = cRM;
             CPF = cPF;
+            Sobre = sobre;
         }
 
         public override bool EhValido()
