@@ -16,7 +16,7 @@ namespace MarcaPlantao.Aplicacao.Dados.Clinicas
 
         public string Sobre { get; set; }
 
-        public IFormFile Imagem { get; set; }
+        public IFormFile? Imagem { get; set; }
 
         public EnderecoDados? Endereco { get; set; }
     }
