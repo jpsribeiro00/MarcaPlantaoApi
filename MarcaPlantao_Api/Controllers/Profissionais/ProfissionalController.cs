@@ -40,7 +40,7 @@ namespace MarcaPlantao_Api.Controllers.Profissionais
         }
 
         [HttpPut("AtualizarProfissional")]
-        public async Task<IActionResult> Atualizar([FromBody] AtualizarProfissionalDados profissional)
+        public async Task<IActionResult> Atualizar([FromForm] AtualizarProfissionalDados profissional)
         {
             var resultado = await profissionalServico.AtualizarAsync(profissional);
 

@@ -41,7 +41,7 @@ namespace MarcaPlantao_Api.Controllers.Clinicas
         }
 
         [HttpPut("AtualizarClinica")]
-        public async Task<IActionResult> Atualizar([FromBody] ClinicaArquivoDados Clinica)
+        public async Task<IActionResult> Atualizar([FromForm] ClinicaArquivoDados Clinica)
         {
             var resultado = await clinicaServicoApp.AtualizarAsync(Clinica);
 
