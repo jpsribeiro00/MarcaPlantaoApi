@@ -1,6 +1,8 @@
 ﻿using MarcaPlantao.Aplicacao.Consultas.EventosClinica;
 using MarcaPlantao.Aplicacao.Consultas.EventosProfissionais;
 using MarcaPlantao.Aplicacao.Servicos.Clinicas;
+using MarcaPlantao.Infra.Repositorios.Consultas.PlantaoMeses;
+using MarcaPlantao.Infra.Repositorios.Consultas.ValorDias;
 using MarcaPlantao_Infraestrutura.Comunicacao.Mediador;
 using MarcaPlantao_Infraestrutura.Mensagens.Notificacao;
 using MarcaPlantao_Servico.Controllers;
@@ -16,12 +18,17 @@ namespace MarcaPlantao_Api.Controllers.Consultas
     {
         private readonly IEventoClinicaConsultaApp eventoConsultaApp;
         private readonly IEventoProfissionalConsultaApp eventoProfissionalConsultaApp;
+        private readonly IPlantaoMesRepositorio plantaoMesRepositorio;
+        private readonly IValorDiaRepositorio valorDiaRepositorio;
 
         public ConsultaController(INotificationHandler<NotificacaoDominio> notifications, IMediatorHandler mediator,
-            IEventoClinicaConsultaApp eventoConsultaApp, IEventoProfissionalConsultaApp eventoProfissionalConsultaApp) : base(notifications, mediator)
+            IEventoClinicaConsultaApp eventoConsultaApp, IEventoProfissionalConsultaApp eventoProfissionalConsultaApp,
+            IPlantaoMesRepositorio plantaoMesRepositorio, IValorDiaRepositorio valorDiaRepositorio) : base(notifications, mediator)
         {
             this.eventoConsultaApp = eventoConsultaApp;
             this.eventoProfissionalConsultaApp = eventoProfissionalConsultaApp;
+            this.plantaoMesRepositorio = plantaoMesRepositorio;
+            this.valorDiaRepositorio = valorDiaRepositorio;
         }
 
         [HttpGet("ObterEventosPorClinica")]
@@ -36,6 +43,22 @@ namespace MarcaPlantao_Api.Controllers.Consultas
         public async Task<IActionResult> ObterEventosPorProfissional(Guid Id)
         {
             var resultado = await eventoProfissionalConsultaApp.BuscarEventosProfissional(Id);
+
+            return Response(resultado);
+        }
+
+        [HttpGet("ObterPlantaoMesClinica")]
+        public async Task<IActionResult> ObterPlantaoMesClinica(Guid Id)
+        {
+            var resultado = await plantaoMesRepositorio.ObterIndicadorPlantaoMes(Id);
+
+            return Response(resultado);
+        }
+
+        [HttpGet("ObterValorDiaClinica")]
+        public async Task<IActionResult> ObterValorDiaClinica(Guid Id)
+        {
+            var resultado = await valorDiaRepositorio.ObterIndicadorValorDia(Id);
 
             return Response(resultado);
         }

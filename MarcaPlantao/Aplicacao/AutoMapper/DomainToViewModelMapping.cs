@@ -7,9 +7,11 @@ using MarcaPlantao.Aplicacao.Dados.Especializacoes;
 using MarcaPlantao.Aplicacao.Dados.EventosClinica;
 using MarcaPlantao.Aplicacao.Dados.EventosProfissionais;
 using MarcaPlantao.Aplicacao.Dados.Ofertas;
+using MarcaPlantao.Aplicacao.Dados.PlantaoMes;
 using MarcaPlantao.Aplicacao.Dados.Plantoes;
 using MarcaPlantao.Aplicacao.Dados.Profissionais;
 using MarcaPlantao.Aplicacao.Dados.Usuario;
+using MarcaPlantao.Aplicacao.Dados.ValorDias;
 using MarcaPlantao.Dominio.Avaliacao;
 using MarcaPlantao.Dominio.Clinicas;
 using MarcaPlantao.Dominio.Consultas;
@@ -108,6 +110,9 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
 
             CreateMap<AvaliacaoClinica, AvaliacaoClinicaSimplificadoDados>()
                 .ForMember(d => d.Profissional, o => o.MapFrom(sess => sess.Profissional.Nome));
+
+            CreateMap<PlantaoMes, PlantaoMesDados>();
+            CreateMap<ValorDia, ValorDiaDados>();
         }
     }
 }

@@ -14,8 +14,10 @@ using MarcaPlantao.Aplicacao.Consultas.Especializacoes;
 using MarcaPlantao.Aplicacao.Consultas.EventosClinica;
 using MarcaPlantao.Aplicacao.Consultas.EventosProfissionais;
 using MarcaPlantao.Aplicacao.Consultas.Ofertas;
+using MarcaPlantao.Aplicacao.Consultas.PlantaoMeses;
 using MarcaPlantao.Aplicacao.Consultas.Plantoes;
 using MarcaPlantao.Aplicacao.Consultas.Profissionais;
+using MarcaPlantao.Aplicacao.Consultas.ValorDias;
 using MarcaPlantao.Aplicacao.Servicos.Acesso;
 using MarcaPlantao.Aplicacao.Servicos.Alertas;
 using MarcaPlantao.Aplicacao.Servicos.Avaliacao;
@@ -33,6 +35,8 @@ using MarcaPlantao.Infra.Repositorios.Avaliacao;
 using MarcaPlantao.Infra.Repositorios.Clinicas;
 using MarcaPlantao.Infra.Repositorios.Consultas.EventosClinica;
 using MarcaPlantao.Infra.Repositorios.Consultas.EventosProfissional;
+using MarcaPlantao.Infra.Repositorios.Consultas.PlantaoMeses;
+using MarcaPlantao.Infra.Repositorios.Consultas.ValorDias;
 using MarcaPlantao.Infra.Repositorios.Enderecos;
 using MarcaPlantao.Infra.Repositorios.Especializacoes;
 using MarcaPlantao.Infra.Repositorios.Ofertas;
@@ -106,6 +110,10 @@ namespace MarcaPlantao.Infra.IoC
 
             servicos.AddScoped<IAlertaRepositorio, AlertaRepositorio>();
 
+            servicos.AddScoped<IPlantaoMesRepositorio, PlantaoMesRepositorio>();
+
+            servicos.AddScoped<IValorDiaRepositorio, ValorDiaRepositorio>();
+
             //Servicos
             servicos.AddScoped<IProfissionalServicoApp, ProfissionalServicoApp>();
 
@@ -141,6 +149,10 @@ namespace MarcaPlantao.Infra.IoC
             servicos.AddScoped<IAlertaConsultaApp, AlertaConsultaApp>(); 
 
             servicos.AddScoped<IAvaliacaoPlantaoConsultaApp, AvaliacaoPlantaoConsultaApp>();
+
+            servicos.AddScoped<IPlantaoMesConsultaApp, PlantaoMesConsultaApp>();
+
+            servicos.AddScoped<IValorDiaConsultaApp, ValorDiaConsultaApp>();
 
             //Comandos
             servicos.AddScoped<IRequestHandler<AdicionarProfissionalComando, bool>, ProfissionalCommandHandler>();

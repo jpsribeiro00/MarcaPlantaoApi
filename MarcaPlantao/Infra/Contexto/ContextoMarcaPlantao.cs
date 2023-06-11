@@ -34,6 +34,8 @@ namespace MarcaPlantao.Infra.Contexto
         public DbSet<EventoClinica> EventosClinicas { get; set; }
         public DbSet<EventoProfissional> EventosProfissionais { get; set; }
         public DbSet<Alerta> Alertas { get; set; }
+        public DbSet<PlantaoMes> PlantaoMes { get; set; }
+        public DbSet<ValorDia> ValorDias { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -76,6 +78,22 @@ namespace MarcaPlantao.Infra.Contexto
                     {
                         eb.HasNoKey();
                         eb.ToView("View_EventosProfissionais");
+                    });
+
+            modelBuilder
+                .Entity<PlantaoMes>(
+                    eb =>
+                    {
+                        eb.HasNoKey();
+                        eb.ToView("View_PlantaoMes");
+                    });
+
+            modelBuilder
+                .Entity<ValorDia>(
+                    eb =>
+                    {
+                        eb.HasNoKey();
+                        eb.ToView("View_ValorDia");
                     });
 
             base.OnModelCreating(modelBuilder);

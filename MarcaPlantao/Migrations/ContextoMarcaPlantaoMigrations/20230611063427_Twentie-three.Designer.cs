@@ -4,6 +4,7 @@ using MarcaPlantao.Infra.Contexto;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MarcaPlantao.Migrations.ContextoMarcaPlantaoMigrations
 {
     [DbContext(typeof(ContextoMarcaPlantao))]
-    partial class ContextoMarcaPlantaoModelSnapshot : ModelSnapshot
+    [Migration("20230611063427_Twentie-three")]
+    partial class Twentiethree
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
