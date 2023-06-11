@@ -22,7 +22,7 @@ namespace MarcaPlantao.Infra.Mapeamentos.Clinicas
                 .HasColumnType("varchar(200)");
 
             builder.Property(c => c.Imagem)
-                .HasColumnType("varbinary");
+                .HasMaxLength(8000);
 
             builder.Property(c => c.Sobre)
                 .IsRequired()
