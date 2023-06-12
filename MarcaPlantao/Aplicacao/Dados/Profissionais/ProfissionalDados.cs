@@ -20,6 +20,7 @@ namespace MarcaPlantao.Aplicacao.Dados.Profissionais
         public byte[]? Imagem { get; set; }
         public string CRM { get; set; }
         public string CPF { get; set; }
+        public string Sobre { get; set; }
         public string UserId { get; set; }
         public List<OfertaDados>? Ofertas { get; set; }
         public List<EspecializacaoSimplificadoDados>? Especializacoes { get; set; }

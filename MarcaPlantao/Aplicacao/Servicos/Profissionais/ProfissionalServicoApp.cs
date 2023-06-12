@@ -32,7 +32,7 @@ namespace MarcaPlantao.Aplicacao.Servicos.Profissionais
 
         public async Task<bool> AtualizarAsync(AtualizarProfissionalDados profissional)
         {
-            var atualizarComando = mapper.Map<AtualizarProfissionalComando>(profissional);
+            var atualizarComando = mapper.Map<AtualizarProfissionalComando>(mapper.Map<ProfissionalDados>(profissional));
             return await mediador.EnviarComando(atualizarComando);
         }
 
