@@ -8,7 +8,7 @@ namespace MarcaPlantao.Dominio.Consultas
 {
     public class PlantaoMes
     {
-        public string Mes { get; set; }
+        public int Mes { get; set; }
         public int Quantidade { get; set; }
     }
 }
