@@ -26,9 +26,9 @@ namespace MarcaPlantao.Aplicacao.Consultas.Alertas
             return mapper.Map<List<AlertaDados>>(await alertaRepositorio.ObterAlertaPorClinica(ClinicaId));
         }
 
-        public async Task<List<AlertaDados>> ObterPorUsuario(string UsuarioId)
+        public async Task<List<AlertaDados>> ObterPorUsuario(Guid profissionalId)
         {
-            return mapper.Map<List<AlertaDados>>(await alertaRepositorio.ObterAlertaPorUsuario(UsuarioId));
+            return mapper.Map<List<AlertaDados>>(await alertaRepositorio.ObterAlertaPorUsuario(profissionalId));
         }
     }
 }

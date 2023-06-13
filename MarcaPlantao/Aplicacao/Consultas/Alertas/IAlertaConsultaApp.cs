@@ -11,7 +11,7 @@ namespace MarcaPlantao.Aplicacao.Consultas.Alertas
 {
     public interface IAlertaConsultaApp
     {
-        Task<List<AlertaDados>> ObterPorUsuario(string UsuarioId);
+        Task<List<AlertaDados>> ObterPorUsuario(Guid profissionalId);
 
         Task<List<AlertaDados>> ObterPorClinica(Guid ClinicaId);
     }

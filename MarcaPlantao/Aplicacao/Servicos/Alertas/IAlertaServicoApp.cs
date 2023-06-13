@@ -11,7 +11,7 @@ namespace MarcaPlantao.Aplicacao.Servicos.Alertas
     {
         Task<bool> RemoverAsync(Guid id);
 
-        Task<List<AlertaDados>> ObterPorUsuario(string UsuarioId);
+        Task<List<AlertaDados>> ObterPorUsuario(Guid profissionalId);
 
         Task<List<AlertaDados>> ObterPorClinica(Guid ClinicaId);
     }

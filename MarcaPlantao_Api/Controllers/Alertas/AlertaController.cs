@@ -22,9 +22,9 @@ namespace MarcaPlantao_Api.Controllers.Alertas
         }
 
         [HttpGet("ObterAlertaUsuario")]
-        public async Task<IActionResult> ObterPorUsuario(string Id)
+        public async Task<IActionResult> ObterPorUsuario(Guid profissionalId)
         {
-            var resultado = await alertaServicoApp.ObterPorUsuario(Id);
+            var resultado = await alertaServicoApp.ObterPorUsuario(profissionalId);
 
             return Response(resultado);
         }

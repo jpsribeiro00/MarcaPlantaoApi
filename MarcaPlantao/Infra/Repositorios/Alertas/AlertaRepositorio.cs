@@ -1,4 +1,5 @@
 ﻿using MarcaPlantao.Dominio.Alertas;
+using MarcaPlantao.Dominio.Profissionais;
 using MarcaPlantao.Infra.Contexto;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,9 +16,11 @@ namespace MarcaPlantao.Infra.Repositorios.Alertas
         {
         }
 
-        public async Task<List<Alerta>> ObterAlertaPorUsuario(string UsuarioId)
+        public async Task<List<Alerta>> ObterAlertaPorUsuario(Guid profissionalId)
         {
-            return await Db.Alertas.AsNoTracking().Where(x => x.UserId == UsuarioId).ToListAsync();
+            var x = await Db.Profissionais.AsNoTracking().Where(x => x.Id == profissionalId).FirstOrDefaultAsync();
+
+            return await Db.Alertas.AsNoTracking().Where(x => x.UserId == x.UserId).ToListAsync();
         }
 
         public async Task<List<Alerta>> ObterAlertaPorClinica(Guid ClinicaId)

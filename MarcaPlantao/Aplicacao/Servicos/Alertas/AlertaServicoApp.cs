@@ -29,9 +29,9 @@ namespace MarcaPlantao.Aplicacao.Servicos.Alertas
             return await alertaConsultaApp.ObterPorClinica(ClinicaId);
         }
 
-        public async Task<List<AlertaDados>> ObterPorUsuario(string UsuarioId)
+        public async Task<List<AlertaDados>> ObterPorUsuario(Guid profissionalId)
         {
-            return await alertaConsultaApp.ObterPorUsuario(UsuarioId);
+            return await alertaConsultaApp.ObterPorUsuario(profissionalId);
         }
 
         public async Task<bool> RemoverAsync(Guid id)

@@ -10,7 +10,7 @@ namespace MarcaPlantao.Infra.Repositorios.Alertas
 {
     public interface IAlertaRepositorio : IRepositorio<Alerta>
     {
-        Task<List<Alerta>> ObterAlertaPorUsuario(string UsuarioId);
+        Task<List<Alerta>> ObterAlertaPorUsuario(Guid profissionalId);
 
         Task<List<Alerta>> ObterAlertaPorClinica(Guid ClinicaId);
     }
