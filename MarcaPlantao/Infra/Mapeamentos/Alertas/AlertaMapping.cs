@@ -17,7 +17,6 @@ namespace MarcaPlantao.Infra.Mapeamentos.Alertas
             builder.HasKey(p => p.Id);
 
             builder.Property(c => c.Componente)
-                .IsRequired()
                 .HasColumnType("varchar(200)");
 
             builder.Property(c => c.Data)
