@@ -20,12 +20,6 @@ namespace MarcaPlantao.Dominio.Alertas
 
         //Ef Relations
         public string UserId { get; set; }
-
-        [ForeignKey("UserId")]
-        public virtual IdentityDbContext<ApplicationUser> User { get; set; }
-
         public Guid ClinicaId { get; set; }
-        [ForeignKey("ClinicaId")]
-        public virtual Clinica Clinica { get; set; }
     }
 }
