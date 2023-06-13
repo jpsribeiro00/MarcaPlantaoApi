@@ -18,9 +18,9 @@ namespace MarcaPlantao.Infra.Repositorios.Alertas
 
         public async Task<List<Alerta>> ObterAlertaPorUsuario(Guid profissionalId)
         {
-            var x = await Db.Profissionais.AsNoTracking().Where(x => x.Id == profissionalId).FirstOrDefaultAsync();
+            var y = await Db.Profissionais.AsNoTracking().Where(x => x.Id == profissionalId).FirstOrDefaultAsync();
 
-            return await Db.Alertas.AsNoTracking().Where(x => x.UserId == x.UserId).ToListAsync();
+            return await Db.Alertas.AsNoTracking().Where(x => x.UserId == y.UserId).ToListAsync();
         }
 
         public async Task<List<Alerta>> ObterAlertaPorClinica(Guid ClinicaId)
