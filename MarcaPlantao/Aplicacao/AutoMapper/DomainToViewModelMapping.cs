@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MarcaPlantao.Aplicacao.Dados.Acesso;
+using MarcaPlantao.Aplicacao.Dados.Alertas;
 using MarcaPlantao.Aplicacao.Dados.Avaliacoes;
 using MarcaPlantao.Aplicacao.Dados.Clinicas;
 using MarcaPlantao.Aplicacao.Dados.Endereco;
@@ -12,6 +13,7 @@ using MarcaPlantao.Aplicacao.Dados.Plantoes;
 using MarcaPlantao.Aplicacao.Dados.Profissionais;
 using MarcaPlantao.Aplicacao.Dados.Usuario;
 using MarcaPlantao.Aplicacao.Dados.ValorDias;
+using MarcaPlantao.Dominio.Alertas;
 using MarcaPlantao.Dominio.Avaliacao;
 using MarcaPlantao.Dominio.Clinicas;
 using MarcaPlantao.Dominio.Consultas;
@@ -112,7 +114,9 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
                 .ForMember(d => d.Profissional, o => o.MapFrom(sess => sess.Profissional.Nome));
 
             CreateMap<PlantaoMes, PlantaoMesDados>();
-            CreateMap<ValorDia, ValorDiaDados>();
+            CreateMap<ValorDia, ValorDiaDados>(); 
+
+            CreateMap<Alerta, AlertaDados>();
         }
     }
 }
