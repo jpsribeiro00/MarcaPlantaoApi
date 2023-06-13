@@ -169,7 +169,7 @@ namespace MarcaPlantao.Aplicacao.Comandos
                 Alerta alerta = new Alerta();
                 alerta.UserId = profissional.UserId;
                 alerta.TipoMensagem = "Alerta";
-                alerta.Mensagem = "Plantão da data" + plantaoExiste.DataInicial + " foi cancelado.";
+                alerta.Mensagem = "Plantão da data " + plantaoExiste.DataInicial + " foi cancelado.";
 
                 await alertaRepositorio.Adicionar(alerta);
 
