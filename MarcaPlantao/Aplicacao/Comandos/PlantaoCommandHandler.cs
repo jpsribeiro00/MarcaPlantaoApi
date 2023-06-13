@@ -148,7 +148,7 @@ namespace MarcaPlantao.Aplicacao.Comandos
             {
                 if (!ValidarComando(request)) return false;
 
-                var plantaoExiste = await plantaoRepositorio.ObterPorId(request.Id);
+                var plantaoExiste = await plantaoRepositorio.ObterPlantaoProfissionalOfertaPorId(request.Id);
 
                 if (plantaoExiste == null)
                 {
