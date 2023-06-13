@@ -13,10 +13,10 @@ namespace MarcaPlantao.Dominio.Alertas
 {
     public class Alerta : Entidade
     {
-        public string Mensagem { get; set; }
-        public string TipoMensagem { get; set; }
-        public string Data { get; set; }
-        public string Componente { get; set; }
+        public string? Mensagem { get; set; }
+        public string? TipoMensagem { get; set; }
+        public string? Data { get; set; }
+        public string? Componente { get; set; }
 
         //Ef Relations
         public string UserId { get; set; }
