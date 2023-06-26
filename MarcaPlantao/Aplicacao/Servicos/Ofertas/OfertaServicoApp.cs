@@ -45,14 +45,9 @@ namespace MarcaPlantao.Aplicacao.Servicos.Ofertas
             return await ofertaConsultaApp.ObterPorId(id);
         }
 
-        public async Task<List<ObterOfertaDados>> ObterTodos()
+        public async Task<List<ObterOfertaDados>> ObterTodos(DateTime? dataInicio, DateTime? dataFinal, double? valorInicial, double? valorFinal, string? turno)
         {
-            return (await ofertaConsultaApp.ObterTodos()).Where(x => x.DataInicial > DateTime.Now).ToList();
-        }
-
-        public async Task<List<ListaOfertasAbertasProfissional>> ObterOfertasAbertasParaProfissional(Guid ProfissionalId, DateTime? dataInicio, DateTime? dataFinal, double? valorInicial, double? valorFinal, string? turno)
-        {
-            return await ofertaConsultaApp.ObterOfertasAbertasParaProfissional(ProfissionalId, dataInicio, dataFinal, valorInicial, valorFinal, turno);
+            return (await ofertaConsultaApp.ObterTodos(dataInicio,dataFinal,valorInicial,valorFinal,turno)).Where(x => x.DataInicial > DateTime.Now).ToList();
         }
 
         public async Task<bool> RemoverAsync(Guid id)

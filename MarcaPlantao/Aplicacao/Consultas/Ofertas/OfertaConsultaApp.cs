@@ -28,14 +28,9 @@ namespace MarcaPlantao.Aplicacao.Consultas.Ofertas
             return mapper.Map<ObterOfertaDados>(await ofertaRepositorio.ObterOfertaProfissionalEspecializacaoPorId(id));
         }
 
-        public async Task<List<ObterOfertaDados>> ObterTodos()
+        public async Task<List<ObterOfertaDados>> ObterTodos(DateTime? dataInicio, DateTime? dataFinal, double? valorInicial, double? valorFinal, string? turno)
         {
-            return mapper.Map<List<ObterOfertaDados>>(await ofertaRepositorio.ObterTodasOfertaProfissionalEspecializacao());
-        }
-
-        public async Task<List<ListaOfertasAbertasProfissional>> ObterOfertasAbertasParaProfissional(Guid ProfissionalId, DateTime? dataInicio, DateTime? dataFinal, double? valorInicial, double? valorFinal, string? turno)
-        {
-            return ObterListaOfertasFiltradas(await ObterListaProfissional(ProfissionalId), dataInicio, dataFinal, valorInicial, valorFinal, turno);
+            return ObterListaOfertasFiltradas(mapper.Map<List<ObterOfertaDados>>(await ofertaRepositorio.ObterTodasOfertaProfissionalEspecializacao()), dataInicio, dataFinal, valorInicial, valorFinal, turno);
         }
 
         public async Task<List<ListaOfertasAbertasProfissional>> ObterListaProfissional(Guid ProfissionalId)
@@ -52,7 +47,7 @@ namespace MarcaPlantao.Aplicacao.Consultas.Ofertas
             return listaOfertasParaCandidato;
         }
 
-        public List<ListaOfertasAbertasProfissional> ObterListaOfertasFiltradas(IEnumerable<ListaOfertasAbertasProfissional> listaOfertas, DateTime? dataInicio, DateTime? dataFinal, double? valorInicial, double? valorFinal, string? turno) 
+        public List<ObterOfertaDados> ObterListaOfertasFiltradas(IEnumerable<ObterOfertaDados> listaOfertas, DateTime? dataInicio, DateTime? dataFinal, double? valorInicial, double? valorFinal, string? turno) 
         {
             if (dataInicio != null && dataFinal != null)
                 listaOfertas = listaOfertas.Where(x => x.DataInicial > dataInicio && x.DataFinal < dataFinal);

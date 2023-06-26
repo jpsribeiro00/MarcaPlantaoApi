@@ -23,9 +23,9 @@ namespace MarcaPlantao_Api.Controllers.Ofertas
         }
 
         [HttpGet("ObterTodasOfertas")]
-        public async Task<IActionResult> ObterTodos()
+        public async Task<IActionResult> ObterTodos(DateTime? dataInicio, DateTime? dataFinal, double? valorInicial, double? valorFinal, string? turno)
         {
-            var resultado = await ofertaServicoApp.ObterTodos();
+            var resultado = await ofertaServicoApp.ObterTodos(dataInicio, dataFinal,valorInicial, valorFinal, turno);
 
             return Response(resultado);
         }
@@ -74,14 +74,6 @@ namespace MarcaPlantao_Api.Controllers.Ofertas
         public async Task<IActionResult> RemoverProfissionalOferta([FromBody] AdicionarRemoverProfissionalOfertaDados Oferta)
         {
             var resultado = await ofertaServicoApp.RemoverProfissionalOfertaAsync(Oferta.ProfissionalId, Oferta.OfertaId);
-
-            return Response(resultado);
-        }
-
-        [HttpGet("ObterOfertasParaProfissional")]
-        public async Task<IActionResult> RemoverProfissionalOferta(Guid ProfissionalId, DateTime? dataInicio, DateTime? dataFinal, double? valorInicial, double? valorFinal, string? turno)
-        {
-            var resultado = await ofertaServicoApp.ObterOfertasAbertasParaProfissional(ProfissionalId, dataInicio, dataFinal, valorInicial, valorFinal, turno);
 
             return Response(resultado);
         }
