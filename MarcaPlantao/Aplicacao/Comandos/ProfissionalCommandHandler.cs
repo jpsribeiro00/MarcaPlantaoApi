@@ -55,6 +55,7 @@ namespace MarcaPlantao.Aplicacao.Comandos
                 profissional.CPF = request.CPF;
                 profissional.Ofertas = mapper.Map<ICollection<Oferta>>(request.Ofertas);
                 profissional.Especializacoes = await BuscarEspecializacoes(request.Especializacoes);
+                profissional.Sobre = "";
 
                 await profissionalRepositorio.Adicionar(profissional);
 
