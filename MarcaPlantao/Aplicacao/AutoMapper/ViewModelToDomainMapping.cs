@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MarcaPlantao.Aplicacao.Comandos.AlertaComandos;
 using MarcaPlantao.Aplicacao.Comandos.AvaliacaoComandos;
 using MarcaPlantao.Aplicacao.Comandos.ClinicaComandos;
 using MarcaPlantao.Aplicacao.Comandos.EnderecoComandos;
@@ -6,6 +7,7 @@ using MarcaPlantao.Aplicacao.Comandos.OfertaComandos;
 using MarcaPlantao.Aplicacao.Comandos.PlantaoComandos;
 using MarcaPlantao.Aplicacao.Comandos.ProfissionalComandos;
 using MarcaPlantao.Aplicacao.Dados.Acesso;
+using MarcaPlantao.Aplicacao.Dados.Alertas;
 using MarcaPlantao.Aplicacao.Dados.Avaliacoes;
 using MarcaPlantao.Aplicacao.Dados.Clinicas;
 using MarcaPlantao.Aplicacao.Dados.Endereco;
@@ -251,6 +253,11 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
 
             CreateMap<AdicionarAvaliacaoProfissionalPlantaoDados, AdicionarAvaliacaoProfissionalClinicaComando>()
                 .ConstructUsing(x => new AdicionarAvaliacaoProfissionalClinicaComando(x.PlantaoId, x.ProfissionalId, x.ClinicaId, x.Nota, x.Descricao));
+
+            CreateMap<AlertaDados, RemoverAlertaComando>()
+                .ConstructUsing(x => new RemoverAlertaComando(
+                    x.Id
+                ));
         }
 
         public byte[] FormatarImagemArquivoByte(IFormFile arquivo) 
