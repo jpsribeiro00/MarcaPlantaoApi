@@ -37,9 +37,14 @@ namespace MarcaPlantao_Api.Controllers.Acesso
             if (!ModelState.IsValid) return Response(registerUser);
 
             var result = await servicoAutenticacao.RegistrarUsuario(registerUser, "Profissional", "Adicionar");
-            result.Token = await GerarToken(result.Email);
 
-            return Response(result);
+            if(result != null) 
+            {
+                result.Token = await GerarToken(result.Email);
+                return Response(result);
+            }
+
+            return Response();
         }
 
         [HttpPost("RegistrarAdministrador")]
