@@ -33,10 +33,17 @@ namespace MarcaPlantao.Infra.Repositorios.Ofertas
 
         public async Task<List<Oferta>> ObterTodasOfertaProfissionalEspecializacao()
         {
-            return await Db.Ofertas.AsNoTracking()
+            var ofertas = await Db.Ofertas.AsNoTracking()
                 .Include(x => x.Profissionais)
                 .Include(x => x.Especializacoes)
                 .ToListAsync();
+
+            var plantaoOfertas = await Db.Plantoes.AsNoTracking()
+                .Include(x => x.Oferta)
+                .Select(x => x.OfertaId)
+                .ToListAsync();
+
+            return ofertas.Where(x => !plantaoOfertas.Contains(x.Id)).ToList();
         }
 
         public async Task<List<Oferta>> ObterOfertasAbertasParaProfissional()
