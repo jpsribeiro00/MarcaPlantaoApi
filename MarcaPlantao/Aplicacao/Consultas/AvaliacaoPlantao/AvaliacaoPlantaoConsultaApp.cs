@@ -31,9 +31,9 @@ namespace MarcaPlantao.Aplicacao.Consultas.AvaliacaoPlantao
             };
         }
 
-        public async Task<List<AvaliacaoClinicaSimplificadoDados>> ObterAvaliacaoProfissionais(Guid profissionalId)
+        public async Task<List<ObterAvaliacaoClinicaParaProfissional>> ObterAvaliacaoProfissionais(Guid profissionalId)
         {
-            return mapper.Map<List<AvaliacaoClinicaSimplificadoDados>>(await avaliacaoClinicaRepositorio.ObterPorProfissionaisId(profissionalId));
+            return mapper.Map<List<ObterAvaliacaoClinicaParaProfissional>>(await avaliacaoClinicaRepositorio.ObterPorProfissionaisId(profissionalId));
         }
     }
 }

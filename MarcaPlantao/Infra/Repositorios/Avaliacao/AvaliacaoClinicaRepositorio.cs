@@ -22,7 +22,7 @@ namespace MarcaPlantao.Infra.Repositorios.Avaliacao
 
         public async Task<List<AvaliacaoClinica>> ObterPorProfissionaisId(Guid profissionalId)
         {
-            return await Db.AvaliacaoClinicas.AsNoTracking().Where(x => x.ProfissionalId == profissionalId).ToListAsync();
+            return await Db.AvaliacaoClinicas.AsNoTracking().Include(x => x.Clinica).Where(x => x.ProfissionalId == profissionalId).ToListAsync();
         }
     }
 }

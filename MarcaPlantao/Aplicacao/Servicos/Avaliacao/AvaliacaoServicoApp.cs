@@ -37,7 +37,7 @@ namespace MarcaPlantao.Aplicacao.Servicos.Avaliacao
            return await avaliacaoPlantaoConsultaApp.ObterAvaliacaoPlantao(plantaoId);
         }
 
-        public async Task<List<AvaliacaoClinicaSimplificadoDados>> ObterAvaliacaoProfissional(Guid profissionalId)
+        public async Task<List<ObterAvaliacaoClinicaParaProfissional>> ObterAvaliacaoProfissional(Guid profissionalId)
         {
             return await avaliacaoPlantaoConsultaApp.ObterAvaliacaoProfissionais(profissionalId);
         }

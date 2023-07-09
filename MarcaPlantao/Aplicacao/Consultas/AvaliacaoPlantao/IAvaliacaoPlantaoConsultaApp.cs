@@ -11,6 +11,6 @@ namespace MarcaPlantao.Aplicacao.Consultas.AvaliacaoPlantao
     {
         Task<object> ObterAvaliacaoPlantao(Guid plantaoId);
 
-        Task<List<AvaliacaoClinicaSimplificadoDados>> ObterAvaliacaoProfissionais(Guid profissionalId);
+        Task<List<ObterAvaliacaoClinicaParaProfissional>> ObterAvaliacaoProfissionais(Guid profissionalId);
     }
 }

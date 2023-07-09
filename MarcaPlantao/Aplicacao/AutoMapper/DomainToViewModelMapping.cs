@@ -117,6 +117,9 @@ namespace MarcaPlantao.Aplicacao.AutoMapper
             CreateMap<ValorDia, ValorDiaDados>(); 
 
             CreateMap<Alerta, AlertaDados>();
+
+            CreateMap<AvaliacaoClinica, ObterAvaliacaoClinicaParaProfissional>()
+                .ForMember(d => d.Clinica, o => o.MapFrom(sess => sess.Clinica.RazaoSocial));
         }
     }
 }

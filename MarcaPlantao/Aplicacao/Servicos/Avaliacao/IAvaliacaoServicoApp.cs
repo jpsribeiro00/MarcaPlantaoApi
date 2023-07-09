@@ -9,7 +9,7 @@ namespace MarcaPlantao.Aplicacao.Servicos.Avaliacao
 {
     public interface IAvaliacaoServicoApp
     {
-        Task<List<AvaliacaoClinicaSimplificadoDados>> ObterAvaliacaoProfissional(Guid profissionalId);
+        Task<List<ObterAvaliacaoClinicaParaProfissional>> ObterAvaliacaoProfissional(Guid profissionalId);
 
         Task<object> ObterAvaliacaoPlantao(Guid plantaoId);
 
