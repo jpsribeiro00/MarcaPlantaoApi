@@ -22,6 +22,14 @@ namespace MarcaPlantao_Api.Controllers.Avaliacao
             this.avaliacaoServicoApp = avaliacaoServicoApp;
         }
 
+        [HttpGet("ObterAvaliacaoClinicaParaProfissional")]
+        public async Task<IActionResult> ObterAvaliacaoClinicaParaProfissional(Guid Id)
+        {
+            var resultado = await avaliacaoServicoApp.ObterAvaliacaoProfissional(Id);
+
+            return Response(resultado);
+        }
+
         [HttpGet("ObterAvaliacaoPlantao")]
         public async Task<IActionResult> ObterAvaliacaoPlantaoId(Guid Id)
         {

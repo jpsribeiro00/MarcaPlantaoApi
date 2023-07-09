@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MarcaPlantao.Aplicacao.Dados.Avaliacoes;
 using MarcaPlantao.Dominio.Avaliacao;
 using MarcaPlantao.Infra.Repositorios.Avaliacao;
 using System;
@@ -28,6 +29,11 @@ namespace MarcaPlantao.Aplicacao.Consultas.AvaliacaoPlantao
                 avaliacaoClinica = await avaliacaoClinicaRepositorio.ObterPorPlantaoId(plantaoId),
                 avaliacaoProfissional = await avaliacaoProfissionalRepositorio.ObterPorPlantaoId(plantaoId)
             };
+        }
+
+        public async Task<List<AvaliacaoClinicaSimplificadoDados>> ObterAvaliacaoProfissionais(Guid profissionalId)
+        {
+            return mapper.Map<List<AvaliacaoClinicaSimplificadoDados>>(await avaliacaoClinicaRepositorio.ObterPorProfissionaisId(profissionalId));
         }
     }
 }

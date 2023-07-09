@@ -3,6 +3,7 @@ using MarcaPlantao.Aplicacao.Comandos.AvaliacaoComandos;
 using MarcaPlantao.Aplicacao.Consultas.AvaliacaoPlantao;
 using MarcaPlantao.Aplicacao.Dados.Avaliacoes;
 using MarcaPlantao.Aplicacao.Dados.Clinicas;
+using MarcaPlantao.Dominio.Plantoes;
 using MarcaPlantao_Infraestrutura.Comunicacao.Mediador;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,11 @@ namespace MarcaPlantao.Aplicacao.Servicos.Avaliacao
         public async Task<object> ObterAvaliacaoPlantao(Guid plantaoId)
         {
            return await avaliacaoPlantaoConsultaApp.ObterAvaliacaoPlantao(plantaoId);
+        }
+
+        public async Task<List<AvaliacaoClinicaSimplificadoDados>> ObterAvaliacaoProfissional(Guid profissionalId)
+        {
+            return await avaliacaoPlantaoConsultaApp.ObterAvaliacaoProfissionais(profissionalId);
         }
     }
 }
